@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import Card from './cardUI'
-import img1 from '../assets/donut.jpg';
+import img1 from "../assets/donut.jpg";
 
 export default class Cards extends Component{
     render(){
