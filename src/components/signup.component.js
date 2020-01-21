@@ -27,13 +27,13 @@ export default class SignUp extends Component {
                 </div>
 
                 <div className="form-group">
-                    <label>Birth of date</label>
+                    <label>Date of Birth</label>
                     <input type="date" className="form-control" />
                 </div>
 
                 <div className="form-group">
                     <label>Telephone Number</label>
-                    <input type="tel" className="form-control" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" required placeholder="Enter Telephone"/>
+                    <input type="tel" className="form-control" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" required placeholder="XXX-XXX-XXXX"/>
                 </div>
 
                 <div className="form-group">

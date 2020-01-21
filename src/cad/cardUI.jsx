@@ -13,6 +13,7 @@ const Card = props => {
                 <p className="card-text text-secondary">
                     Test
                 </p>
+                <a href="#" className="btn btn-outline-danger">Delete</a>
                 <a href="#" className="btn btn-outline-success">Go Anywhere</a>
             </div>
         </div>
