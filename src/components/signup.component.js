@@ -1,61 +1,88 @@
 import React, { Component } from "react";
-import "../components/signup.css"
+import "../components/signup.css";
+import axios from 'axios';
+
+
 
 export default class SignUp extends Component {
-    constructor(props){
-        super(props);
-
-        this.state={
+        state={
             username : '',
             firstname: '',
             lastname: '',
             email:'',
-            dob:'',
+            birthdate: '',
             telephone:'',
             password:'',
-            role:"Admin"
+            role:"admin",
+            owners:[]
         };
-    }
+    
 
     changeUsernameHandler = event => {
         this.setState({
-            username: event.target.value,
+            username: event.target.value
         });
     }
     changeFirstnameHandler = event => {
         this.setState({
-            firstname: event.target.value,
+            firstname: event.target.value
         });
     }
     changeLastnameHandler = event => {
         this.setState({
-            lastname: event.target.value,
+            lastname: event.target.value
         });
     }
     changeEmailHandler = event => {
         this.setState({
-            email: event.target.value,
+            email: event.target.value
         });
     }
-    
     changeDobHandler = event => {
+        var dateobj = new Date(event.target.value);
         this.setState({
-            dob: event.target.value,
+            birthdate : dateobj.toISOString()
         });
     }
     changeTelHandler = event => {
         this.setState({
-            telephone: event.target.value,
+            telephone: event.target.value
         });
     }
     changePasswordHandler = event => {
         this.setState({
-            password: event.target.value,
+            password: event.target.value
         });
     }
 
-    submitHandler = event => {
-        console.log(this.state);
+    handleSubmit = event => {
+        event.preventDefault();
+
+        const user = {
+            username : this.state.username,
+            firstname: this.state.firstname,
+            lastname: this.state.lastname,
+            birthdate: this.state.birthdate,
+            email: this.state.email,
+            telephone: this.state.telephone,
+            password: this.state.password,
+            role:"admin",
+            owners: []
+        }
+        
+        console.log(user)
+        axios.post(`https://tander-webservice.herokuapp.com/users`,  user)
+        .then((res, err) => {    
+            if (err) console.error(">>>>>>>>>>>>>>>>>>>>>\n" + err)
+            else {
+                console.log(res);
+                console.log(res.data);
+            }
+        })
+
+        // axios.get('https://tander-webservice.herokuapp.com/restaurants').then( res => {
+        //     console.log(res)
+        // })
     }
 
     render() {
@@ -85,7 +112,7 @@ export default class SignUp extends Component {
 
                 <div className="form-group">
                     <label>Date of Birth</label>
-                    <input type="date" className="form-control"  onChange={this.changeDobHandler} />
+                    <input type="date" className="form-control"  onChange={this.changeDobHandler} pattern="yyyy/mm/dd" required/>
                 </div>
 
                 <div className="form-group">
@@ -98,7 +125,7 @@ export default class SignUp extends Component {
                     <input type="password" className="form-control" placeholder="Enter password" onChange={this.changePasswordHandler} />
                 </div>
 
-                <button type="submit" className="btn btn-primary btn-block" onClick={this.submitHandler}>Sign Up</button>
+                <button type="submit" className="btn btn-primary btn-block" onClick={this.handleSubmit} >Sign Up</button>
                 <p className="forgot-password text-right">
                     Already registered <a href="/sign-in">sign in?</a>
                 </p>

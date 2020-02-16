@@ -11,16 +11,16 @@ export default class Login extends Component {
     }
     changeEmailHandler = event =>{
         this.setState({
-            email: event.target.value,
+            email: event.target.value
         })
     }
     changePasswordHandler = event =>{
         this.setState({
-            password: event.target.value,
+            password: event.target.value
         })
     }
     submitHandler = event => {
-        console.log(this.state)
+        console.log(this.state);
     }
 
     render() {
