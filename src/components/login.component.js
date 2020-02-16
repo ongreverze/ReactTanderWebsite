@@ -1,17 +1,18 @@
 import React, { Component } from "react";
+import axios from "axios";
 
 export default class Login extends Component {
     constructor(props){
         super(props);
             this.state ={
-                email: '',
+                username: '',
                 password: '',
             }
         
     }
-    changeEmailHandler = event =>{
+    changeUsernameHandler = event =>{
         this.setState({
-            email: event.target.value
+            username: event.target.value
         })
     }
     changePasswordHandler = event =>{
@@ -19,8 +20,19 @@ export default class Login extends Component {
             password: event.target.value
         })
     }
-    submitHandler = event => {
-        console.log(this.state);
+    loginHandle = event => {
+        event.preventDefault();
+
+        const user = {
+            username : this.state.username,
+            password : this.state.password
+        }
+        console.log(user);
+        axios.post(`https://tander-webservice.herokuapp.com/users/login`, user)
+        .then(res =>{
+            console.log(res);
+        })
+
     }
 
     render() {
@@ -29,8 +41,8 @@ export default class Login extends Component {
                 <h3>Sign in</h3>
 
                 <div className="form-group">
-                    <label>Email address</label>
-                    <input type="email" className="form-control" placeholder="Enter email" onChange = {this.changeEmailHandler} />
+                    <label>Username</label>
+                    <input type="email" className="form-control" placeholder="Enter username" onChange = {this.changeUsernameHandler} />
                 </div>
 
                 <div className="form-group">
@@ -45,7 +57,7 @@ export default class Login extends Component {
                     </div>
                 </div>
 
-                <button type="submit" className="btn btn-primary btn-block" onChange = {this.submitHandler}>Submit</button>
+                <button type="submit" className="btn btn-primary btn-block" onClick = {this.loginHandle}>Submit</button>
                 <p className="forgot-password text-right">
                     Forgot <a href="#">password?</a>
                 </p>

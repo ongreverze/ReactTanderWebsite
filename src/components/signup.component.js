@@ -77,6 +77,7 @@ export default class SignUp extends Component {
             else {
                 console.log(res);
                 console.log(res.data);
+                
             }
         })
 
