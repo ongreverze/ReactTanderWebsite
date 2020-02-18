@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import "../components/signup.css";
 import axios from 'axios';
-
+import { Navbar } from "react-bootstrap";
+import NavbarLogin from "./navbar.component";
 
 
 export default class SignUp extends Component {
@@ -88,6 +89,8 @@ export default class SignUp extends Component {
 
     render() {
         return (
+            <div>
+            <NavbarLogin />
             <form>
                 <h3>Sign Up</h3>
 
@@ -130,7 +133,7 @@ export default class SignUp extends Component {
                 <p className="forgot-password text-right">
                     Already registered <a href="/sign-in">sign in?</a>
                 </p>
-            </form>
+            </form></div>
         );
     }
 }
