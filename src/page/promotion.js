@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
-import Menubar from './menubar'
-import NavbarLoggedin from './navbarloggedin'
-import FormPromotion from './formPromotion'
+import Menubar from '../components/menubar'
+import NavbarLoggedin from '../components/navbar/navbarloggedin'
+import FormPromotion from '../components/form/formPromotion'
 export default class promotion extends Component {
     render() {
         return (

@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
-import Menubar from './menubar'
-import NavbarLoggedin from './navbarloggedin'
-import FormRestaurant from './formRestaurant'
+import Menubar from '../components/menubar'
+import NavbarLoggedin from '../components/navbar/navbarloggedin'
+import FormRestaurant from '../components/form/formRestaurant'
+import Card from '../components/card'
 export default class restaurant extends Component {
     render() {
         return (
@@ -9,6 +10,7 @@ export default class restaurant extends Component {
                 <NavbarLoggedin/>
                 <Menubar/>
                 <FormRestaurant/>
+
             </div>
         )
     }

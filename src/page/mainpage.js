@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import NavbarLoggedin from './navbarloggedin'
-import Menubar from './menubar'
+import NavbarLoggedin from '../components/navbar/navbarloggedin'
+import Menubar from '../components/menubar'
 
 export default class MainPage extends Component {
     render() {

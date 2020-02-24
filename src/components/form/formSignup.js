@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import axios from 'axios';
 import { Navbar } from "react-bootstrap";
-import NavbarLogin from "./navbar";
+import NavbarLogin from "../navbar/navbar";
 
 
 export default class SignUp extends Component {

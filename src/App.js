@@ -3,13 +3,13 @@ import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import { BrowserRouter as Router, Switch, Route, NavLink, Redirect } from "react-router-dom";
 
-import Login from "./components/login";
-import SignUp from "./components/signup";
-import MainPage from './components/mainpage';
-import Restaurant from './components/restaurant';
-import Promotion from './components/promotion';
-import Profile from './components/profile';
-import Help from './components/help';
+import Login from "./components/form/formLogin";
+import SignUp from "./components/form/formSignup";
+import MainPage from './page/mainpage';
+import Restaurant from './page/restaurant';
+import Promotion from './page/promotion';
+import Profile from './page/profile';
+import Help from './page/help';
 
 function App() {
   return (
