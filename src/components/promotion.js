@@ -1,14 +1,15 @@
 import React, { Component } from 'react'
-import NavbarLoggedin from './navbarloggedin'
 import Menubar from './menubar'
-
-export default class MainPage extends Component {
+import NavbarLoggedin from './navbarloggedin'
+import FormPromotion from './formPromotion'
+export default class promotion extends Component {
     render() {
         return (
             <div>
+                <h1> </h1>
                 <NavbarLoggedin/>
                 <Menubar/>
-                <h1>MainPage</h1>
+                <FormPromotion/>
             </div>
         )
     }

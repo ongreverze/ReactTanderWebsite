@@ -1,14 +1,14 @@
 import React, { Component } from 'react'
-import NavbarLoggedin from './navbarloggedin'
 import Menubar from './menubar'
-
-export default class MainPage extends Component {
+import NavbarLoggedin from './navbarloggedin'
+import FormRestaurant from './formRestaurant'
+export default class restaurant extends Component {
     render() {
         return (
             <div>
                 <NavbarLoggedin/>
                 <Menubar/>
-                <h1>MainPage</h1>
+                <FormRestaurant/>
             </div>
         )
     }

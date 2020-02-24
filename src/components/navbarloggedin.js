@@ -6,7 +6,6 @@ export default class navbarloggedin extends Component {
     render() {
         return (
             <div>
-                
             <nav className="navbar navbar-expand-lg navbar-light fixed-top">
                 <div className="container">
                     <NavLink className="navbar-brand" to={"/sign-in"}>Tander</NavLink>
