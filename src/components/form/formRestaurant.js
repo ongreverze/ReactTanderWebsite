@@ -5,8 +5,6 @@ export default class formRestaurant extends Component {
         return (
             <div>
                 <form>
-                    <h3>Add Restaurant</h3>
-
                     <div className="form-group">
                         <label>Name</label>
                         <input type="text" className="form-control" placeholder="Username" />
@@ -31,18 +29,19 @@ export default class formRestaurant extends Component {
 
                         <select class="custom-select" id="inputGroupSelect02">
                             <option selected>Choose...</option>
-                            <option value="1">One</option>
-                            <option value="2">Two</option>
-                            <option value="3">Three</option>
+                            <option value="1">Buffet</option>
+                            <option value="2">Seafood</option>
+                            <option value="3">Japanese food</option>
                         </select>
                     </div>
-                    <button type="submit" className="btn btn-primary btn-block" onClick={this.handleSubmit} >Submit</button>
-
-
-
-
-
-
+                    
+                    <div className ="form-group">
+                    <div class="custom-file">
+                        <label>Picture</label>
+                        <input type="file" class="custom-file-input" id="customFile" />
+                        <label class="custom-file-label" htmlFor="customFile">Choose file</label>
+                    </div>
+                    </div>
                 </form>
 
             </div>

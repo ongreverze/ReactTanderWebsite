@@ -3,7 +3,6 @@ import axios from "axios";
 import NavbarLogin from "../navbar/navbar";
 
 
-
 export default class LoginPage extends Component {
     constructor(props) {
         super(props);
@@ -14,7 +13,6 @@ export default class LoginPage extends Component {
         }
 
     }
-    
     changeUsernameHandler = event => {
         this.setState({
             username: event.target.value
