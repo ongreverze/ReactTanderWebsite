@@ -1,8 +1,7 @@
 import React, { Component } from "react";
-import "../components/signup.css";
 import axios from 'axios';
 import { Navbar } from "react-bootstrap";
-import NavbarLogin from "./navbar.component";
+import NavbarLogin from "./navbar";
 
 
 export default class SignUp extends Component {

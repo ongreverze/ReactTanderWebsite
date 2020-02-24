@@ -3,16 +3,16 @@ import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import { BrowserRouter as Router, Switch, Route, NavLink, Redirect } from "react-router-dom";
 
-import Login from "./components/login.component";
-import SignUp from "./components/signup.component";
-import MainPage from './components/mainpage.component';
-import Navbar from './components/navbar.component';
-import NavbarLoggedin from './components/navbarloggedin.component';
+import Login from "./components/login";
+import SignUp from "./components/signup";
+import MainPage from './components/mainpage';
+import Navbar from './components/navbar';
+import NavbarLoggedin from './components/navbarloggedin';
 
 
 function App() {
   return (
-  <Router>  
+    <Router>  
     <div className="App">
        <div className="auth-wrapper">
         <div className="auth-inner">
@@ -29,7 +29,6 @@ function App() {
      
     </div>
   </Router>
-
   );
 }
 

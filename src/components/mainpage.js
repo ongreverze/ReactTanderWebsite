@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import NavbarLoggedin from '../components/navbarloggedin.component'
+import NavbarLoggedin from './navbarloggedin'
 
 export default class MainPage extends Component {
     render() {
