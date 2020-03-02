@@ -37,7 +37,7 @@ export default class LoginPage extends Component {
             .then(res => {
                 console.log(res);
                 this.setState({ loggedIn: true });
-                history.push('/mainpage')
+                history.push('/restaurant')
             })
             .catch(err => {
                 console.log(err);

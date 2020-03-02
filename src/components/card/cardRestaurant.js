@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Card , CardColumns , Button , ButtonToolbar, Modal} from 'react-bootstrap';
+import { Card , CardColumns , Button} from 'react-bootstrap';
 import EditFormRestaurant from '../form/editFormRestaurant';
 
 export default class card extends Component {

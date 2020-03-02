@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import Menubar from '../components/menubar'
 import NavbarLoggedin from '../components/navbar/navbarloggedin'
 import FormPromotion from '../components/form/formPromotion'
 import { Modal, Button, ButtonToolbar } from 'react-bootstrap';
@@ -12,9 +11,8 @@ const Promotion = () => {
     return (
         <>
             <NavbarLoggedin />
-            <Menubar />
             <ButtonToolbar>
-                <Button onClick={() => setModalShow(true)}>Add</Button>
+                <Button onClick={() => setModalShow(true)} >Add</Button>
                 <Modal
                     size="lg"
                     show={modalShow}

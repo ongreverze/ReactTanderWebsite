@@ -1,5 +1,4 @@
-import React, { Component, useState } from 'react'
-import Menubar from '../components/menubar'
+import React, { useState } from 'react'
 import NavbarLoggedin from '../components/navbar/navbarloggedin'
 import FormRestaurant from '../components/form/formRestaurant'
 import CardRestaurant from '../components/card/cardRestaurant'
@@ -13,7 +12,7 @@ export default function Restaurant() {
     return (
         <>
             <NavbarLoggedin/>
-                <Menubar/>
+
                 <ButtonToolbar>
                 <Button onClick={() => setModalShow(true)}>Add</Button>
                 <Modal
