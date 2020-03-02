@@ -40,6 +40,7 @@ export default function Restaurant() {
         </Modal.Footer>
                 </Modal>
             </ButtonToolbar>
+            <Card/>
         </>
     )
 }

@@ -3,6 +3,7 @@ import Menubar from '../components/menubar'
 import NavbarLoggedin from '../components/navbar/navbarloggedin'
 import FormPromotion from '../components/form/formPromotion'
 import { Modal, Button, ButtonToolbar } from 'react-bootstrap';
+import Card from '../components/card'
 
 const Promotion = () => {
     const [modalShow, setModalShow] = useState(false)
@@ -38,6 +39,7 @@ const Promotion = () => {
         </Modal.Footer>
                 </Modal>
             </ButtonToolbar>
+            <Card />
         </>
     )
 }

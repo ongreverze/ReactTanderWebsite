@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { InputGroup, Button, Form } from 'react-bootstrap'
 
 export default class formRestaurant extends Component {
     render() {
@@ -27,20 +28,24 @@ export default class formRestaurant extends Component {
                     <div className="form-group">
                         <label>Catagories</label>
 
-                        <select class="custom-select" id="inputGroupSelect02">
-                            <option selected>Choose...</option>
-                            <option value="1">Buffet</option>
-                            <option value="2">Seafood</option>
-                            <option value="3">Japanese food</option>
-                        </select>
+                        <Form>
+                            {['checkbox'].map(type => (
+                                <div key={`inline-${type}`} className="mb-3">
+                                    <Form.Check inline label="Buffet" type={type} id={`inline-${type}-1`} />
+                                    <Form.Check inline label="Japanese Food" type={type} id={`inline-${type}-2`} />
+                                    <Form.Check inline label="Dessert" type={type} id={`inline-${type}-1`} />
+                                    <Form.Check inline label="Shabu" type={type} id={`inline-${type}-2`} />
+                                </div>
+                            ))}
+                        </Form>
                     </div>
-                    
-                    <div className ="form-group">
-                    <div class="custom-file">
-                        <label>Picture</label>
-                        <input type="file" class="custom-file-input" id="customFile" />
-                        <label class="custom-file-label" htmlFor="customFile">Choose file</label>
-                    </div>
+
+                    <div className="form-group">
+                        <div class="custom-file">
+                            <label>Picture</label>
+                            <input type="file" class="custom-file-input" id="customFile" />
+                            <label class="custom-file-label" htmlFor="customFile">Choose file</label>
+                        </div>
                     </div>
                 </form>
 
