@@ -2,7 +2,7 @@ import React, { Component, useState } from 'react'
 import Menubar from '../components/menubar'
 import NavbarLoggedin from '../components/navbar/navbarloggedin'
 import FormRestaurant from '../components/form/formRestaurant'
-import Card from '../components/card'
+import CardRestaurant from '../components/card/cardRestaurant'
 import {ButtonToolbar,Button,Modal} from 'react-bootstrap';
 
 
@@ -40,7 +40,7 @@ export default function Restaurant() {
         </Modal.Footer>
                 </Modal>
             </ButtonToolbar>
-            <Card/>
+            <CardRestaurant/>
         </>
     )
 }
