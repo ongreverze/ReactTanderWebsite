@@ -35,7 +35,7 @@ export default class editFormPromotion extends Component {
                           </Modal.Body>
                       <Modal.Footer>
                       <Button variant="secondary" onClick={this.handleClose}>
-     Close
+     Cancel
    </Button>
    <Button variant="primary" onClick={this.handleClose}>
      Save Changes

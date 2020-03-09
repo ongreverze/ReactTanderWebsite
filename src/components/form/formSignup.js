@@ -70,19 +70,20 @@ export default class SignUp extends Component {
         }
         
         console.log(user)
-        axios.post(`https://tander-webservice.herokuapp.com/users`,  user)
-        .then((res, err) => {    
-            if (err) console.error(">>>>>>>>>>>>>>>>>>>>>\n" + err)
-            else {
-                console.log(res);
-                console.log(res.data);
-                alert("Sign up success !")
-            }
-        })
-
-        // axios.get('https://tander-webservice.herokuapp.com/restaurants').then( res => {
-        //     console.log(res)
+        // axios.post(`https://tander-webservice.herokuapp.com/users`,  user)
+        // .then((res, err) => {    
+        //     if (err) console.error(">>>>>>>>>>>>>>>>>>>>>\n" + err)
+        //     else {
+        //         console.log(res);
+        //         console.log(res.data);
+        //         alert("Sign up success !")
+        //     }
         // })
+
+        axios.get('https://tander-webservice.herokuapp.com/promotions').then( res => {
+            console.log(res);
+            console.log(res.data);
+        })
     }
 
     render() {

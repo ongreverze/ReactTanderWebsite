@@ -9,10 +9,12 @@ export default class LoginPage extends Component {
         this.state = {
             username: '',
             password: '',
-            loggedIn: false
+            loggedIn: false,
+            id : ''
         }
 
     }
+    
     changeUsernameHandler = event => {
         this.setState({
             username: event.target.value
@@ -37,7 +39,7 @@ export default class LoginPage extends Component {
             .then(res => {
                 console.log(res);
                 this.setState({ loggedIn: true });
-                history.push('/restaurant')
+                this.props.history.push(`/restaurant`)
             })
             .catch(err => {
                 console.log(err);
