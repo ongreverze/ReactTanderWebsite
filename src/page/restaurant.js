@@ -29,14 +29,7 @@ export default function Restaurant() {
                     <Modal.Body>
                         <FormRestaurant />
                     </Modal.Body>
-                    <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Close
-          </Button>
-          <Button variant="primary" onClick={handleClose}>
-            Save Changes
-          </Button>
-        </Modal.Footer>
+                    
                 </Modal>
             </ButtonToolbar>
             <CardRestaurant/>
