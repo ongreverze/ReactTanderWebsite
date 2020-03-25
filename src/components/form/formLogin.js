@@ -1,45 +1,38 @@
-import React, { Component } from "react";
+import React, { Component, useState, useContext } from "react";
 import axios from "axios";
 import NavbarLogin from "../navbar/navbar";
+import { useHistory } from 'react-router-dom';
+import { UserContext } from '../Usercontext';
 
 
-export default class LoginPage extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            username: '',
-            password: '',
-            loggedIn: false,
-            id : ''
+export default function LoginPage() {
+    let history = useHistory();
+    const {user, setUser} = useContext(UserContext);
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
+
+    const changeUsernameHandler = e => {
+        setUsername(e.target.value);
+    }
+    const changePasswordHandler = e => {
+        setPassword(e.target.value);
+    }
+
+    const loginHandle = e => {
+
+        e.preventDefault();
+
+        const _user = {
+            username: username,
+            password: password
         }
 
-    }
-    
-    changeUsernameHandler = event => {
-        this.setState({
-            username: event.target.value
-        })
-    }
-    changePasswordHandler = event => {
-        this.setState({
-            password: event.target.value
-        })
-    }
-    
-    loginHandle = event => { 
-        const {history} = this.props;
-        event.preventDefault();
-
-        const user = {
-            username: this.state.username,
-            password: this.state.password
-        }
-        console.log(user);
-        axios.post(`https://tander-webservice.herokuapp.com/users/login`, user)
+        console.log(_user);
+        axios.post(`https://tander-webservice.herokuapp.com/users/login`, _user)
             .then(res => {
                 console.log(res);
-                this.setState({ loggedIn: true });
-                this.props.history.push(`/restaurant`)
+                setUser(username);
+                history.push(`/restaurant`)
             })
             .catch(err => {
                 console.log(err);
@@ -48,21 +41,21 @@ export default class LoginPage extends Component {
 
     }
 
-    render() {
-        return (
-            <div>
+
+    return (
+        <>
             <NavbarLogin />
             <form>
                 <h3>Sign in</h3>
 
                 <div className="form-group">
                     <label>Username</label>
-                    <input type="email" className="form-control" placeholder="Enter username" onChange={this.changeUsernameHandler} />
+                    <input type="email" className="form-control" placeholder="Enter username" onChange={changeUsernameHandler} />
                 </div>
 
                 <div className="form-group">
                     <label>Password</label>
-                    <input type="password" className="form-control" placeholder="Enter password" onChange={this.changePasswordHandler} />
+                    <input type="password" className="form-control" placeholder="Enter password" onChange={changePasswordHandler} />
                 </div>
 
                 <div className="form-group">
@@ -72,14 +65,94 @@ export default class LoginPage extends Component {
                     </div>
                 </div>
 
-                <input type="button" value="Submit" className="btn btn-primary btn-block" onClick={this.loginHandle} />
+                <input type="button" value="Submit" className="btn btn-primary btn-block" onClick={loginHandle} />
                 <p className="forgot-password text-right">
                     Forgot <a href="#">password?</a>
                 </p>
 
             </form>
-            </div>
+        </>
 
-        );
-    }
+    );
+
 }
+// export default class LoginPage extends Component {
+//     constructor(props) {
+//         super(props);
+//         this.state = {
+//             username: '',
+//             password: '',
+//             loggedIn: false,
+//             id : ''
+//         }
+
+//     }
+
+//     changeUsernameHandler = event => {
+//         this.setState({
+//             username: event.target.value
+//         })
+//     }
+//     changePasswordHandler = event => {
+//         this.setState({
+//             password: event.target.value
+//         })
+//     }
+
+//     loginHandle = event => { 
+//         const {history} = this.props;
+//         event.preventDefault();
+
+//         const user = {
+//             username: this.state.username,
+//             password: this.state.password
+//         }
+//         console.log(user);
+//         axios.post(`https://tander-webservice.herokuapp.com/users/login`, user)
+//             .then(res => {
+//                 console.log(res);
+//                 this.setState({ loggedIn: true });
+//                 this.props.history.push(`/restaurant`)
+//             })
+//             .catch(err => {
+//                 console.log(err);
+//             })
+
+
+//     }
+
+//     render() {
+//         return (
+//             <div>
+//             <NavbarLogin />
+//             <form>
+//                 <h3>Sign in</h3>
+
+//                 <div className="form-group">
+//                     <label>Username</label>
+//                     <input type="email" className="form-control" placeholder="Enter username" onChange={this.changeUsernameHandler} />
+//                 </div>
+
+//                 <div className="form-group">
+//                     <label>Password</label>
+//                     <input type="password" className="form-control" placeholder="Enter password" onChange={this.changePasswordHandler} />
+//                 </div>
+
+//                 <div className="form-group">
+//                     <div className="custom-control custom-checkbox">
+//                         <input type="checkbox" className="custom-control-input" id="customCheck1" />
+//                         <label className="custom-control-label" htmlFor="customCheck1">Remember me</label>
+//                     </div>
+//                 </div>
+
+//                 <input type="button" value="Submit" className="btn btn-primary btn-block" onClick={this.loginHandle} />
+//                 <p className="forgot-password text-right">
+//                     Forgot <a href="#">password?</a>
+//                 </p>
+
+//             </form>
+//             </div>
+
+//         );
+//     }
+// }
