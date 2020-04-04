@@ -1,9 +1,11 @@
-import React ,{ useState } from 'react'
+import React ,{ useState , useContext } from 'react'
 import {Button} from 'react-bootstrap'
 import axios from 'axios'
+import { UserContext } from '../Usercontext';
 
 
 export default function FormPromotion() {
+    const {user} = useContext(UserContext);
     const [name,setName] = useState('');
     const [detail,setDetail] = useState('');
     const [telephone,setTelephone] = useState('');
@@ -26,12 +28,12 @@ export default function FormPromotion() {
         setUrl(e.target.value)
     }
     const onChangeStart = e =>{
-        var dateobj = new Date(e.target.value);
-        setStart(dateobj.toISOString());
+        var dateobj = e.target.value;
+        setStart(dateobj);
     }
     const onChangeEnd = e =>{
-        var dateobj = new Date(e.target.value);
-        setEnd(dateobj.toISOString());
+        var dateobj = e.target.value;
+        setEnd(dateobj);
     }
     const onChangeVisible = () =>{
         setisVisible(!isVisible);
@@ -40,11 +42,12 @@ export default function FormPromotion() {
         e.preventDefault();
 
         const _promotion = {
-            promotionname : name,
+            promotionName : name,
             description : detail,
-            validtime: start,
-            endtime: end,
-            isVisible: isVisible,
+            validTime : start+"T00:00:00.000Z",
+            endTime : end+"T00:00:00.000Z",
+            isVisible : isVisible,
+            ownerUsername : user
         }
         
         console.log(_promotion);

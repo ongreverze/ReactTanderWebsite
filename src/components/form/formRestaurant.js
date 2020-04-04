@@ -1,8 +1,10 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import { Form, Button } from 'react-bootstrap'
 import axios from 'axios'
+import { UserContext } from '../Usercontext';
 
 export default function FormRestaurant() {
+    const { user } = useContext(UserContext);
     const [name, setName] = useState('');
     const [address, setAddress] = useState('');
     const [telephone, setTelephone] = useState('');
@@ -10,6 +12,7 @@ export default function FormRestaurant() {
     const [isBuffet, setBuffet] = useState(false);
     const [isShabu, setShabu] = useState(false);
     const [isJapaneseFood, setJapaneseFood] = useState(false);
+    const [isFastFood, setFastFood] = useState(false);
 
     const changeNameHandler = e => {
         setName(e.target.value);
@@ -25,38 +28,33 @@ export default function FormRestaurant() {
     }
     const onChangeBuffet = () => {
         setBuffet(!isBuffet);
-    
+
     }
     const onChangeJapan = () => {
         setJapaneseFood(!isJapaneseFood);
-    
+
     }
     const onChangeShabu = () => {
         setShabu(!isShabu);
-    
+
+    }
+    const onChangeFastFood = () => {
+        setFastFood(!isFastFood);
+
     }
 
 
     const submitHandle = e => {
         // const { history } = this.props;
         e.preventDefault();
-        let checkArray = [];
-        for (var key in 7) {
-            if ([key] === true) {
-                checkArray.push(key);
-            }
-        }
-        let checkData = {
-            checkbox: checkArray.toString()
-        };
-        console.log(checkArray.toString());
+        
 
         const restaurant = {
             name: name,
             address: address,
             telephone: telephone,
             url: url,
-            catagories: checkData,
+            user: user
         }
 
         console.log(restaurant);
@@ -70,80 +68,92 @@ export default function FormRestaurant() {
         //         console.log(err);
         //     })
     }
-        return (
-            <>
-                <form>
-                    <div className="form-group">
-                        <label>Name</label>
-                        <input type="text" className="form-control" placeholder="Name Restaurant" onChange={changeNameHandler} value={name} />
-                    </div>
+    return (
+        <>
+            <form>
+                <div className="form-group">
+                    <label>Name</label>
+                    <input type="text" className="form-control" placeholder="Name Restaurant" onChange={changeNameHandler} value={name} />
+                </div>
 
-                    <div class="form-group">
-                        <label for="exampleFormControlTextarea1">Address</label>
-                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" onChange={changeAddressHandler} value={address}></textarea>
-                    </div>
-                    <div className="form-group">
-                        <label>Telephone Number</label>
-                        <input type="text" className="form-control" placeholder="XX-XXX-XXXX" onChange={changeTelHandler} value={telephone} />
-                    </div>
+                <div class="form-group">
+                    <label for="exampleFormControlTextarea1">Address</label>
+                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" onChange={changeAddressHandler} value={address}></textarea>
+                </div>
+                <div className="form-group">
+                    <label>Telephone Number</label>
+                    <input type="text" className="form-control" placeholder="XX-XXX-XXXX" onChange={changeTelHandler} value={telephone} />
+                </div>
 
-                    <div className="form-group">
-                        <label>URL</label>
-                        <input type="email" className="form-control" placeholder="Enter URL" onChange={changeURLHandler} value={url} />
-                    </div>
-                    <label>Catagories</label>
-                    <div className="form-check">
-                        <div>
-                            <label className="form-check-label">
-                                <input type="checkbox"
-                                    checked={isBuffet}
-                                    onChange={onChangeBuffet}
-                                    className="form-check-input"
-                                    value={isBuffet}
-                            
-                                />
+                <div className="form-group">
+                    <label>URL</label>
+                    <input type="email" className="form-control" placeholder="Enter URL" onChange={changeURLHandler} value={url} />
+                </div>
+                <label>Catagories</label>
+                <div className="form-check" >
+                    <div>
+                        <label className="form-check-label">
+                            <input type="checkbox"
+                                checked={isBuffet}
+                                onChange={onChangeBuffet}
+                                className="form-check-input"
+                                value={isBuffet}
+
+                            />
                                     Buffet
                 </label>
-                        </div><div>
-                            <label className="form-check-label">
-                                <input type="checkbox"
-                                    checked={isJapaneseFood}
-                                    onChange={onChangeJapan}
-                                    className="form-check-input"
-                        
-                                />
+                    </div><div>
+                        <label className="form-check-label">
+                            <input type="checkbox"
+                                checked={isFastFood}
+                                onChange={onChangeFastFood}
+                                className="form-check-input"
+
+
+                            />
+                                    Fastfood
+                </label>
+                    </div><div>
+                        <label className="form-check-label">
+                            <input type="checkbox"
+                                checked={isJapaneseFood}
+                                onChange={onChangeJapan}
+                                className="form-check-input"
+
+                            />
                                     Japanese food
                 </label></div>
-                        <div>
-                            <label className="form-check-label">
-                                <input type="checkbox"
-                                    checked={isShabu}
-                                    onChange={onChangeShabu}
-                                    className="form-check-input"
-                           
-                                />
+                    <div>
+                        <label className="form-check-label">
+                            <input type="checkbox"
+                                checked={isShabu}
+                                onChange={onChangeShabu}
+                                className="form-check-input"
+
+                            />
                                     Shabu
                 </label></div>
 
-                    </div>
-                    <br />
 
-                    <div className="form-group">
-                        <div class="custom-file">
-                            <label>Picture</label>
-                            <input type="file" class="custom-file-input" id="customFile" />
-                            <label class="custom-file-label" htmlFor="customFile">Choose file</label>
-                        </div>
-                    </div>
-                </form>
+                </div>
+                <br />
 
-                <Button variant="primary" onClick={submitHandle}>
-                    Save Changes
+                <div className="form-group">
+                    <div class="custom-file">
+                        <label>Picture</label>
+                        <input type="file" class="custom-file-input" id="customFile" />
+                        <label class="custom-file-label" htmlFor="customFile">Choose file</label>
+                    </div>
+                </div>
+            </form>
+
+            <Button variant="primary" onClick={submitHandle}>
+                Save Changes
               </Button>
 
-            </>
-        )
-    }
+        </>
+    )
+}
 
 // export default class formRestaurant extends Component {
 //     constructor(props) {

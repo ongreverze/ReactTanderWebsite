@@ -6,7 +6,7 @@ export default function Navbarsign() {
     return (
         <>
             <Navbar bg="light" variant="light" className="fixed-top">
-                <Navbar.Brand href="/restaurant">Tander</Navbar.Brand>
+                <Navbar.Brand>Tander</Navbar.Brand>
                 <Navbar.Collapse className="justify-content-end">
                     <Nav>
                         <Nav.Link href="/sign-in">Login</Nav.Link>

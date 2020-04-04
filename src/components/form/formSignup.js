@@ -1,9 +1,11 @@
 import React, { Component,useState} from "react";
 import axios from 'axios';
 import NavbarLogin from "../navbar/navbar";
+import { useHistory } from 'react-router-dom';
 
 
 export default function SignUp () {
+    let history = useHistory();
     const [username,setUsername] = useState('');
     const [firstname, setFirstname] = useState('');
     const [lastname, setLastname] = useState('');
@@ -11,7 +13,7 @@ export default function SignUp () {
     const [birthdate,setBirthdate] = useState('');
     const [telephone,setTelephone] = useState('');
     const [password,setPassword] = useState('');
-    const [role,setRole] = useState('admin');
+    const [role,setRole] = useState('user');
     const [owners,setOwners] = useState ([]);
     
  const changeUsernameHandler = e => {
@@ -53,20 +55,21 @@ const handleSubmit = e => {
     }
     
     console.log(user)
-    // axios.post(`https://tander-webservice.herokuapp.com/users`,  user)
-    // .then((res, err) => {    
-    //     if (err) console.error(">>>>>>>>>>>>>>>>>>>>>\n" + err)
-    //     else {
-    //         console.log(res);
-    //         console.log(res.data);
-    //         alert("Sign up success !")
-    //     }
-    // })
-
-    axios.get('https://tander-webservice.herokuapp.com/promotions').then( res => {
-        console.log(res);
-        console.log(res.data);
+    axios.post(`https://tander-webservice.herokuapp.com/users`,  user)
+    .then((res, err) => {    
+        if (err) console.error(">>>>>>>>>>>>>>>>>>>>>\n" + err)
+        else {
+            console.log(res);
+            console.log(res.data);
+            alert("Sign up success !")
+            history.push(`/sign-in`)
+        }
     })
+
+    // axios.get('https://tander-webservice.herokuapp.com/promotions').then( res => {
+    //     console.log(res);
+    //     console.log(res.data);
+    // })
 }
 
     return (

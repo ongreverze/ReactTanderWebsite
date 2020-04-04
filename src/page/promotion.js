@@ -1,11 +1,13 @@
-import React, { Component, useState } from 'react'
+import React, { Component, useState , useContext } from 'react'
 import NavbarLoggedin from '../components/navbar/navbarloggedin'
 import FormPromotion from '../components/form/formPromotion'
 import { Modal, Button, ButtonToolbar, CardColumns, Card } from 'react-bootstrap';
 import EditFormPromotion from '../components/form/editFormPromotion'
 import axios from 'axios';
+import { UserContext } from '../components/Usercontext';
 
 export default function Promotion() {
+    const {user, setUser} = useContext(UserContext);
     const [modalShow, setModalShow] = useState(false);
     const [promotions, setPromotions] = useState([]);
 
