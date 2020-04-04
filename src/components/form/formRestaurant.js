@@ -47,13 +47,20 @@ export default function FormRestaurant() {
     const submitHandle = e => {
         // const { history } = this.props;
         e.preventDefault();
-        
+        let checkArray = [];
+        var sbox = Array.from( document.getElementsByName( "style" ) );
+        sbox.forEach(v => {
+            if (v.checked){
+                checkArray.push(v.value);
+            }
+        });
 
         const restaurant = {
             name: name,
             address: address,
             telephone: telephone,
             url: url,
+            catagories: checkArray,
             user: user
         }
 
@@ -97,7 +104,8 @@ export default function FormRestaurant() {
                                 checked={isBuffet}
                                 onChange={onChangeBuffet}
                                 className="form-check-input"
-                                value={isBuffet}
+                                value="Buffet"
+                                name ="style"
 
                             />
                                     Buffet
@@ -108,6 +116,8 @@ export default function FormRestaurant() {
                                 checked={isFastFood}
                                 onChange={onChangeFastFood}
                                 className="form-check-input"
+                                value="FastFood"
+                                name ="style"
 
 
                             />
@@ -119,6 +129,8 @@ export default function FormRestaurant() {
                                 checked={isJapaneseFood}
                                 onChange={onChangeJapan}
                                 className="form-check-input"
+                                value = "JapaneseFood"
+                                name = "style"
 
                             />
                                     Japanese food
@@ -129,6 +141,8 @@ export default function FormRestaurant() {
                                 checked={isShabu}
                                 onChange={onChangeShabu}
                                 className="form-check-input"
+                                value = "Shabu"
+                                name = "style"
 
                             />
                                     Shabu
