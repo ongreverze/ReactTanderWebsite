@@ -8,6 +8,7 @@ import { UserContext } from '../Usercontext';
 export default function LoginPage() {
     let history = useHistory();
     const {user, setUser} = useContext(UserContext);
+    const {accessToken,setaccessToken} = useContext(UserContext);
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
 
@@ -30,8 +31,10 @@ export default function LoginPage() {
         console.log(_user);
         axios.post(`https://tander-webservice.herokuapp.com/users/login`, _user)
             .then(res => {
+                const _data = res.data.accessToken;
                 console.log(res);
                 setUser(username);
+                setaccessToken(_data);
                 history.push(`/restaurant`)
             })
             .catch(err => {

@@ -13,7 +13,8 @@ import { UserContext } from './components/Usercontext'
 
 function App() {
   const [user, setUser] = useState(null);
-  const value = useMemo(() => ({ user, setUser }), [user, setUser]);
+  const [accessToken ,setaccessToken] = useState(null);
+  const value = useMemo(() => ({ user, setUser,accessToken,setaccessToken }), [user, setUser,accessToken,setaccessToken]);
   return (
     <Router>
       <div className="App">

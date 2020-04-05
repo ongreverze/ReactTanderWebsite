@@ -65,7 +65,7 @@ export default function FormRestaurant() {
         }
 
         console.log(restaurant);
-        // axios.post(``, restaurant)
+        // axios.post(`https://tander-webservice.herokuapp.com/restaurants`, restaurant)
         //     .then(res => {
         //         console.log(res);
         //         this.setState({ loggedIn: true });
