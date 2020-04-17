@@ -42,7 +42,7 @@ export default function FormPromotion() {
     const handleSubmit = e => {
         e.preventDefault();
 
-        const _promotion = {
+        const promotion = {
             promotionName: name,
             description: detail,
             validTime: start + "T00:00:00.000Z",
@@ -50,30 +50,22 @@ export default function FormPromotion() {
             isVisible: isVisible,
             ownerUsername: user
         }
-        const token = accessToken;
-        console.log(_promotion);
-        console.log(token);
+        console.log(promotion);
         const config = {
-            headers: { Authorization: `Bearer ${token}` }
+            headers: { Authorization: `Bearer ${accessToken}` }
         };
         console.log(config);
+        axios.post(`https://tander-webservice.herokuapp.com/promotions`, promotion, config
+        ).then((res, err) => {
+            if (err) console.error(">>>>>>>>>>>>>>>>>>>>>\n" + err)
 
-        axios.post(`https://tander-webservice.herokuapp.com/promotions`, _promotion, config
-        )
-            .then((res, err) => {
-                if (err) console.error(">>>>>>>>>>>>>>>>>>>>>\n" + err)
+            else {
+                console.log(res);
+                console.log(res.data);
 
-                else {
-                    console.log(res);
-                    console.log(res.data);
-
-                    alert("Add success !")
-                }
-            })
-
-        // axios.get('https://tander-webservice.herokuapp.com/restaurants').then( res => {
-        //     console.log(res)
-        // })
+                alert("Add success !")
+            }
+        })
     }
     return (
         <>

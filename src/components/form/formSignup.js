@@ -1,256 +1,238 @@
-import React, { Component,useState} from "react";
+import React, { Component, useState } from "react";
 import axios from 'axios';
 import NavbarLogin from "../navbar/navbar";
 import { useHistory } from 'react-router-dom';
+import { Form, Col, Button, InputGroup } from 'react-bootstrap';
+import { Formik, ErrorMessage } from 'formik';
+import * as yup from 'yup';
 
 
-export default function SignUp () {
+export default function SignUp() {
     let history = useHistory();
-    const [username,setUsername] = useState('');
-    const [firstname, setFirstname] = useState('');
-    const [lastname, setLastname] = useState('');
-    const [email,setEmail] = useState('');
-    const [birthdate,setBirthdate] = useState('');
-    const [telephone,setTelephone] = useState('');
-    const [password,setPassword] = useState('');
-    const [role,setRole] = useState('user');
-    const [owners,setOwners] = useState ([]);
-    
- const changeUsernameHandler = e => {
-    setUsername(e.target.value);
-}
- const changeFirstnameHandler = e => {
-    setFirstname(e.target.value);
-}
-const changeLastnameHandler = e => {
-    setLastname(e.target.value);
-}
-const changeEmailHandler = e => {
-    setEmail(e.target.value);
-}
-const changeDobHandler = e => {
-    var dateobj = new Date(e.target.value);
-    setBirthdate(dateobj.toISOString());
-}
-const changeTelHandler = e => {
-    setTelephone(e.target.value);
-}
-const changePasswordHandler = e => {
-    setPassword(e.target.value);
-}
+    // const [username, setUsername] = useState('');
+    // const [firstname, setFirstname] = useState('');
+    // const [lastname, setLastname] = useState('');
+    // const [email, setEmail] = useState('');
+    // const [birthdate, setBirthdate] = useState('');
+    // const [telephone, setTelephone] = useState('');
+    // const [password, setPassword] = useState('');
+    // const [role, setRole] = useState('user');
+    // const [owners, setOwners] = useState([]);
 
-const handleSubmit = e => {
-    e.preventDefault();
+    // const changeUsernameHandler = e => {
+    //     setUsername(e.target.value);
+    // }
+    // const changeFirstnameHandler = e => {
+    //     setFirstname(e.target.value);
+    // }
+    // const changeLastnameHandler = e => {
+    //     setLastname(e.target.value);
+    // }
+    // const changeEmailHandler = e => {
+    //     setEmail(e.target.value);
+    // }
+    // const changeDobHandler = e => {
+    //     var dateobj = new Date(e.target.value);
+    //     setBirthdate(dateobj.toISOString());
+    // }
+    // const changeTelHandler = e => {
+    //     setTelephone(e.target.value);
+    // }
+    // const changePasswordHandler = e => {
+    //     setPassword(e.target.value);
+    // }
 
-    const user = {
-        username : username,
-        firstname: firstname,
-        lastname: lastname,
-        birthdate: birthdate,
-        email: email,
-        telephone: telephone,
-        password: password,
-        role: role,
-        owners: []
-    }
-    
-    console.log(user)
-    axios.post(`https://tander-webservice.herokuapp.com/users`,  user)
-    .then((res, err) => {    
-        if (err) console.error(">>>>>>>>>>>>>>>>>>>>>\n" + err)
-        else {
-            console.log(res);
-            console.log(res.data);
-            alert("Sign up success !")
-            history.push(`/sign-in`)
-        }
-    })
+    // const handleSubmit = e => {
+    //     e.preventDefault();
 
-    // axios.get('https://tander-webservice.herokuapp.com/promotions').then( res => {
-    //     console.log(res);
-    //     console.log(res.data);
-    // })
-}
+    //     const user = {
+    //         username : username,
+    //         firstname: firstname,
+    //         lastname: lastname,
+    //         birthdate: birthdate,
+    //         email: email,
+    //         telephone: telephone,
+    //         password: password,
+    //         role: role,
+    //         owners: []
+    //     }
 
+    //     console.log(user)
+    //     // axios.post(`https://tander-webservice.herokuapp.com/users`,  user)
+    //     // .then((res, err) => {    
+    //     //     if (err) console.error(">>>>>>>>>>>>>>>>>>>>>\n" + err)
+    //     //     else {
+    //     //         console.log(res);
+    //     //         console.log(res.data);
+    //     //         alert("Sign up success !")
+    //     //         history.push(`/sign-in`)
+    //     //     }
+    //     // })
+
+    //     // axios.get('https://tander-webservice.herokuapp.com/promotions').then( res => {
+    //     //     console.log(res);
+    //     //     console.log(res.data);
+    //     // })
+    // }
+
+    const SignupSchema = yup.object().shape({
+        firstName: yup.string().required('Required'),
+        lastName: yup.string().required('Required'),
+        username: yup.string().required()
+            .min(4, 'Too Short!')
+            .max(10, 'Too Long!'),
+        email: yup.string()
+            .email('Please enter a valid email')
+            .required('Please enter an email'),
+        dob: yup.string().required(),
+        telephone: yup.string().required(),
+        password: yup.string().required(),
+        
+    });
     return (
         <>
-        <NavbarLogin />
-        <form>
-            <h3>Sign Up</h3>
+            <NavbarLogin />
+            <Formik
+                validationSchema={SignupSchema}
+                onSubmit={values => {
+                    axios.post(`https://tander-webservice.herokuapp.com/users`, values)
+                        .then((res, err) => {
+                            if (err) console.error(">>>>>>>>>>>>>>>>>>>>>\n" + err)
+                            else {
+                                console.log(res);
+                                console.log(res.data);
+                                alert("Sign up success !")
+                                history.push(`/sign-in`)
+                            }
+                        })
+                    console.log(values);
+                }}
+                initialValues={{
+                    firstName: '',
+                    lastName: '',
+                    email: '',
+                    role: 'user',
+                    owners :[]
+                }}
+            >
+                {({
+                    handleSubmit,
+                    handleChange,
+                    handleBlur,
+                    values,
+                    touched,
+                    isValid,
+                    errors,
+                }) => (
+                        <Form noValidate onSubmit={handleSubmit}>
+                            <h3>Sign in</h3>
+                            <Form.Row>
+                                <Form.Group as={Col} md="4" controlId="validationFormik01">
+                                    <Form.Label>First name</Form.Label>
+                                    <Form.Control
+                                        type="text"
+                                        name="firstName"
+                                        value={values.firstName}
+                                        onChange={handleChange}
+                                        isValid={touched.firstName && !errors.firstName}
+                                    />
 
-            <div className="form-group">
-                <label>Username</label>
-                <input type="text" className="form-control" placeholder="Username"  onChange={changeUsernameHandler}/>
-            </div>
+                                </Form.Group>
+                                <Form.Group as={Col} md="4" controlId="validationFormik02">
+                                    <Form.Label>Last name</Form.Label>
+                                    <Form.Control
+                                        type="text"
+                                        name="lastName"
+                                        value={values.lastName}
+                                        onChange={handleChange}
+                                        isValid={touched.lastName && !errors.lastName}
+                                    />
 
-            <div className="form-group">
-                <label>First name</label>
-                <input type="text" className="form-control" placeholder="First name" onChange={changeFirstnameHandler}/>
-            </div>
 
-            <div className="form-group">
-                <label>Last name</label>
-                <input type="text" className="form-control" placeholder="Last name"  onChange={changeLastnameHandler} />
-            </div>
+                                </Form.Group>
+                                <Form.Group as={Col} md="4" controlId="validationFormikUsername">
+                                    <Form.Label>Username</Form.Label>
+                                    <InputGroup>
+                                        <InputGroup.Prepend>
+                                            <InputGroup.Text id="inputGroupPrepend">@</InputGroup.Text>
+                                        </InputGroup.Prepend>
+                                        <Form.Control
+                                            type="text"
+                                            placeholder="Username"
+                                            aria-describedby="inputGroupPrepend"
+                                            name="username"
+                                            value={values.username}
+                                            onChange={handleChange}
+                                            isInvalid={!!errors.username}
+                                        />
 
-            <div className="form-group">
-                <label>Email address</label>
-                <input type="email" className="form-control" placeholder="Enter email"  onChange={changeEmailHandler} />
-            </div>
+                                        <Form.Control.Feedback type="invalid">
+                                            {errors.username}
+                                        </Form.Control.Feedback>
+                                    </InputGroup>
+                                </Form.Group>
+                            </Form.Row>
+                            <Form.Row>
+                                <Form.Group as={Col} md="12" controlId="validationFormik03">
+                                    <Form.Label>Email Address</Form.Label>
+                                    <Form.Control
+                                        type="email"
+                                        placeholder="Email Address"
+                                        name="email"
+                                        value={values.email}
+                                        onChange={handleChange}
+                                        isInvalid={!!errors.email}
+                                    />
 
-            <div className="form-group">
-                <label>Date of Birth</label>
-                <input type="date" className="form-control"  onChange={changeDobHandler} pattern="yyyy/mm/dd" required/>
-            </div>
+                                    <Form.Control.Feedback type="invalid">
+                                        {errors.email}
+                                    </Form.Control.Feedback>
+                                </Form.Group>
+                                <Form.Group as={Col} md="6" controlId="validationFormik03">
+                                    <Form.Label>Date of Birth</Form.Label>
+                                    <Form.Control
+                                        type="date"
+                                        name="dob"
+                                        value={values.dob}
+                                        onChange={handleChange}
+                                        isInvalid={!!errors.dob}
+                                    />
+                                </Form.Group>
+                                <Form.Group as={Col} md="6" controlId="validationFormik04">
+                                    <Form.Label>Telephone Number</Form.Label>
+                                    <Form.Control
+                                        type="text"
+                                        placeholder=""
+                                        name="telephone"
+                                        value={values.telephone}
+                                        onChange={handleChange}
+                                        isInvalid={!!errors.telephone}
+                                    />
+                                    <Form.Control.Feedback type="invalid">
+                                        {errors.telephone}
+                                    </Form.Control.Feedback>
+                                </Form.Group>
+                                <Form.Group as={Col} md="6" controlId="validationFormik05">
+                                    <Form.Label>Password</Form.Label>
+                                    <Form.Control
+                                        type="password"
+                                        placeholder="Password"
+                                        name="password"
+                                        value={values.password}
+                                        onChange={handleChange}
+                                        isInvalid={!!errors.password}
+                                    />
+                                    <Form.Control.Feedback type="invalid">
+                                        {errors.password}
+                                    </Form.Control.Feedback>
+                                </Form.Group>
+                            </Form.Row>
+                            <Button type="submit">Submit</Button>
+                        </Form>
+                    )}
+            </Formik>
 
-            <div className="form-group">
-                <label>Telephone Number</label>
-                <input type="tel" className="form-control" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" required placeholder="xxx-xxx-xxxx" onChange={changeTelHandler}/>
-            </div>
-
-            <div className="form-group">
-                <label>Password</label>
-                <input type="password" className="form-control" placeholder="Enter password" onChange={changePasswordHandler} />
-            </div>
-
-            <button type="submit" className="btn btn-primary btn-block" onClick={handleSubmit} >Sign Up</button>
-            <p className="forgot-password text-right">
-                Already registered <a href="/sign-in">sign in?</a>
-            </p>
-        </form></>
+        </>
     );
 
 }
-// export default class SignUp extends Component {
-//         state={
-//             username : '',
-//             firstname: '',
-//             lastname: '',
-//             email:'',
-//             birthdate: '',
-//             telephone:'',
-//             password:'',
-//             role:"admin",
-//             owners:[]
-//         };
-    
-
-//     changeUsernameHandler = event => {
-//         this.setState({
-//             username: event.target.value
-//         });
-//     }
-//     changeFirstnameHandler = event => {
-//         this.setState({
-//             firstname: event.target.value
-//         });
-//     }
-//     changeLastnameHandler = event => {
-//         this.setState({
-//             lastname: event.target.value
-//         });
-//     }
-//     changeEmailHandler = event => {
-//         this.setState({
-//             email: event.target.value
-//         });
-//     }
-//     changeDobHandler = event => {
-//         var dateobj = new Date(event.target.value);
-//         this.setState({
-//             birthdate : dateobj.toISOString()
-//         });
-//     }
-//     changeTelHandler = event => {
-//         this.setState({
-//             telephone: event.target.value
-//         });
-//     }
-//     changePasswordHandler = event => {
-//         this.setState({
-//             password: event.target.value
-//         });
-//     }
-
-//     handleSubmit = event => {
-//         event.preventDefault();
-
-//         const user = {
-//             username : this.state.username,
-//             firstname: this.state.firstname,
-//             lastname: this.state.lastname,
-//             birthdate: this.state.birthdate,
-//             email: this.state.email,
-//             telephone: this.state.telephone,
-//             password: this.state.password,
-//             role:"admin",
-//             owners: []
-//         }
-        
-//         console.log(user)
-//         // axios.post(`https://tander-webservice.herokuapp.com/users`,  user)
-//         // .then((res, err) => {    
-//         //     if (err) console.error(">>>>>>>>>>>>>>>>>>>>>\n" + err)
-//         //     else {
-//         //         console.log(res);
-//         //         console.log(res.data);
-//         //         alert("Sign up success !")
-//         //     }
-//         // })
-
-//         axios.get('https://tander-webservice.herokuapp.com/promotions').then( res => {
-//             console.log(res);
-//             console.log(res.data);
-//         })
-//     }
-
-//     render() {
-//         return (
-//             <div>
-//             <NavbarLogin />
-//             <form>
-//                 <h3>Sign Up</h3>
-
-//                 <div className="form-group">
-//                     <label>Username</label>
-//                     <input type="text" className="form-control" placeholder="Username"  onChange={this.changeUsernameHandler}/>
-//                 </div>
-
-//                 <div className="form-group">
-//                     <label>First name</label>
-//                     <input type="text" className="form-control" placeholder="First name" onChange={this.changeFirstnameHandler}/>
-//                 </div>
-
-//                 <div className="form-group">
-//                     <label>Last name</label>
-//                     <input type="text" className="form-control" placeholder="Last name"  onChange={this.changeLastnameHandler} />
-//                 </div>
-
-//                 <div className="form-group">
-//                     <label>Email address</label>
-//                     <input type="email" className="form-control" placeholder="Enter email"  onChange={this.changeEmailHandler} />
-//                 </div>
-
-//                 <div className="form-group">
-//                     <label>Date of Birth</label>
-//                     <input type="date" className="form-control"  onChange={this.changeDobHandler} pattern="yyyy/mm/dd" required/>
-//                 </div>
-
-//                 <div className="form-group">
-//                     <label>Telephone Number</label>
-//                     <input type="tel" className="form-control" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" required placeholder="xxx-xxx-xxxx" onChange={this.changeTelHandler}/>
-//                 </div>
-
-//                 <div className="form-group">
-//                     <label>Password</label>
-//                     <input type="password" className="form-control" placeholder="Enter password" onChange={this.changePasswordHandler} />
-//                 </div>
-
-//                 <button type="submit" className="btn btn-primary btn-block" onClick={this.handleSubmit} >Sign Up</button>
-//                 <p className="forgot-password text-right">
-//                     Already registered <a href="/sign-in">sign in?</a>
-//                 </p>
-//             </form></div>
-//         );
-//     }
-// }

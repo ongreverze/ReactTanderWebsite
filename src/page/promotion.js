@@ -1,4 +1,4 @@
-import React, { Component, useState , useContext } from 'react'
+import React, { Component, useState , useContext , useEffect } from 'react'
 import NavbarLoggedin from '../components/navbar/navbarloggedin'
 import FormPromotion from '../components/form/formPromotion'
 import { Modal, Button, ButtonToolbar, CardColumns, Card } from 'react-bootstrap';
@@ -8,34 +8,45 @@ import { UserContext } from '../components/Usercontext';
 
 export default function Promotion() {
     const {user, setUser} = useContext(UserContext);
+    const {accessToken} = useContext(UserContext);
     const [modalShow, setModalShow] = useState(false);
     const [promotions, setPromotions] = useState([]);
 
+    
     const getPromotionsData = () => {
+        const token = {
+            headers: { Authorization: `Bearer ${accessToken}` }
+        };
+        console.log(accessToken);
         axios
-            .get('https://tander-webservice.herokuapp.com/promotions')
-            .then(res => {
+            .get('https://tander-webservice.herokuapp.com/promotions',token
+            ).then(res => {
                 const data = res.data
                 console.log(data)
-                const promotions = data.map(u =>
+                const promotions = data.map(items =>
                     <div>
                         <Card>
                             <Card.Img variant="top" src="holder.js/100px160" />
                             <Card.Body>
-                                <Card.Title>{u.promotionname}</Card.Title>
+                                <Card.Title>{items.promotionname}</Card.Title>
                                 <Card.Text>
-                                    {u.description}
+                                    {items.description}
                                 </Card.Text>
                             </Card.Body>
                             <Card.Footer>
                                 <EditFormPromotion />
-                                <Button variant="danger" >
+                                <Button variant="danger" 
+                                // onClick={() =>
+                                // axios.delete(`https://tander-webservice.herokuapp.com/promotions/${items._id}`,token)}
+
+                                >
                                     Delete
                                 </Button>
                             </Card.Footer>
                         </Card>
 
                     </div>
+                    
                 )
                 setPromotions(promotions);
 
@@ -45,13 +56,16 @@ export default function Promotion() {
             })
 
     }
-    const componentDidMount = () => {
+    // const componentDidMount = () => {
+    //     getPromotionsData()
+    // }
+    useEffect(() => {
         getPromotionsData()
-    }
+    }, []);
     return (
         <div>
             <NavbarLoggedin />
-
+            <label>Promotion</label>
             <ButtonToolbar>
                 <Button onClick={() => setModalShow(true)}>Add</Button>
                 <Modal

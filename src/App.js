@@ -29,7 +29,6 @@ function App() {
                 <Route path="/restaurant" component={Restaurant} />
                 <Route path="/promotion" component={Promotion} />
                 <Route path="/profile" component={Profile} />
-                <Route path="/help" component={Help} />
               {/* </Switch> */}
             </UserContext.Provider>
           </div>

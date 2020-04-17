@@ -1,4 +1,4 @@
-import React, { useState , useContext } from 'react'
+import React, { useState , useContext , useEffect } from 'react'
 import NavbarLoggedin from '../components/navbar/navbarloggedin'
 import FormRestaurant from '../components/form/formRestaurant'
 import { Modal, Button, ButtonToolbar, CardColumns, Card } from 'react-bootstrap';
@@ -19,14 +19,14 @@ export default function Restaurant() {
             .then(res => {
                 const data = res.data
                 console.log(data)
-                const restaurants = data.map(u =>
+                const restaurants = data.map(items =>
                     <div>
                         <Card>
                             <Card.Img variant="top" src="holder.js/100px160" />
                             <Card.Body>
-                                <Card.Title>{u.name}</Card.Title>
+                                <Card.Title>{items.name}</Card.Title>
                                 <Card.Text>
-                                    {u.address}
+                                    {items.address}
                                 </Card.Text>
                             </Card.Body>
                             <Card.Footer>
@@ -47,12 +47,13 @@ export default function Restaurant() {
             })
 
     }
-    const componentDidMount = () => {
+    useEffect(() => {
         getRestaurantsData()
-    }
+    }, []);
     return (
         <>
             <NavbarLoggedin/>
+            <label>Restaurant</label>
                 <ButtonToolbar>
                 <Button onClick={() => setModalShow(true)}>Add</Button>
                 <Modal

@@ -9,6 +9,7 @@ export default function LoginPage() {
     let history = useHistory();
     const {user, setUser} = useContext(UserContext);
     const {accessToken,setaccessToken} = useContext(UserContext);
+    const {role,setRole} = useContext(UserContext);
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
 
@@ -29,7 +30,7 @@ export default function LoginPage() {
         }
 
         console.log(_user);
-        axios.post(`https://tander-webservice.herokuapp.com/users/login`, _user)
+        axios.post(`https://tander-webservice.herokuapp.com/users/login/`, _user)
             .then(res => {
                 const _data = res.data.accessToken;
                 console.log(res);
@@ -39,6 +40,7 @@ export default function LoginPage() {
             })
             .catch(err => {
                 console.log(err);
+                alert("login failed!")
             })
 
 
