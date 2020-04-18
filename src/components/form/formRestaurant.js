@@ -1,335 +1,267 @@
 import React, { useState, useContext } from 'react'
-import { Form, Button } from 'react-bootstrap'
+import { Form, Col, Button, InputGroup } from 'react-bootstrap';
+import { Formik } from 'formik';
+import * as yup from 'yup';
 import axios from 'axios'
 import { UserContext } from '../Usercontext';
 
 export default function FormRestaurant() {
     const { user } = useContext(UserContext);
-    const [name, setName] = useState('');
-    const [address, setAddress] = useState('');
-    const [telephone, setTelephone] = useState('');
-    const [url, setUrl] = useState('');
-    const [isBuffet, setBuffet] = useState(false);
-    const [isShabu, setShabu] = useState(false);
-    const [isJapaneseFood, setJapaneseFood] = useState(false);
-    const [isFastFood, setFastFood] = useState(false);
+    // const [name, setName] = useState('');
+    // const [address, setAddress] = useState('');
+    // const [telephone, setTelephone] = useState('');
+    // const [url, setUrl] = useState('');
+    // const [isBuffet, setBuffet] = useState(false);
+    // const [isShabu, setShabu] = useState(false);
+    // const [isJapaneseFood, setJapaneseFood] = useState(false);
+    // const [isFastFood, setFastFood] = useState(false);
 
-    const changeNameHandler = e => {
-        setName(e.target.value);
-    }
-    const changeAddressHandler = e => {
-        setAddress(e.target.value);
-    }
-    const changeTelHandler = e => {
-        setTelephone(e.target.value);
-    }
-    const changeURLHandler = e => {
-        setUrl(e.target.value);
-    }
-    const onChangeBuffet = () => {
-        setBuffet(!isBuffet);
+    // const changeNameHandler = e => {
+    //     setName(e.target.value);
+    // }
+    // const changeAddressHandler = e => {
+    //     setAddress(e.target.value);
+    // }
+    // const changeTelHandler = e => {
+    //     setTelephone(e.target.value);
+    // }
+    // const changeURLHandler = e => {
+    //     setUrl(e.target.value);
+    // }
+    // const onChangeBuffet = () => {
+    //     setBuffet(!isBuffet);
 
-    }
-    const onChangeJapan = () => {
-        setJapaneseFood(!isJapaneseFood);
+    // }
+    // const onChangeJapan = () => {
+    //     setJapaneseFood(!isJapaneseFood);
 
-    }
-    const onChangeShabu = () => {
-        setShabu(!isShabu);
+    // }
+    // const onChangeShabu = () => {
+    //     setShabu(!isShabu);
 
-    }
-    const onChangeFastFood = () => {
-        setFastFood(!isFastFood);
+    // }
+    // const onChangeFastFood = () => {
+    //     setFastFood(!isFastFood);
 
-    }
+    // }
 
 
-    const submitHandle = e => {
-        // const { history } = this.props;
-        e.preventDefault();
-        let checkArray = [];
-        var sbox = Array.from( document.getElementsByName( "style" ) );
-        sbox.forEach(v => {
-            if (v.checked){
-                checkArray.push(v.value);
-            }
-        });
+    // const submitHandle = e => {
+    //     // const { history } = this.props;
+    //     e.preventDefault();
+    //     let checkArray = [];
+    //     var sbox = Array.from( document.getElementsByName( "style" ) );
+    //     sbox.forEach(v => {
+    //         if (v.checked){
+    //             checkArray.push(v.value);
+    //         }
+    //     });
 
-        const restaurant = {
-            name: name,
-            address: address,
-            telephone: telephone,
-            url: url,
-            catagories: checkArray,
-            user: user
-        }
+    //     const restaurant = {
+    //         name: name,
+    //         address: address,
+    //         telephone: telephone,
+    //         url: url,
+    //         catagories: checkArray,
+    //         user: user
+    //     }
 
-        console.log(restaurant);
-        // axios.post(`https://tander-webservice.herokuapp.com/restaurants`, restaurant)
-        //     .then(res => {
-        //         console.log(res);
-        //         this.setState({ loggedIn: true });
-        //         history.push('/restaurant')
-        //     })
-        //     .catch(err => {
-        //         console.log(err);
-        //     })
-    }
+    //     console.log(restaurant);
+    //     // axios.post(`https://tander-webservice.herokuapp.com/restaurants`, restaurant)
+    //     //     .then(res => {
+    //     //         console.log(res);
+    //     //         this.setState({ loggedIn: true });
+    //     //         history.push('/restaurant')
+    //     //     })
+    //     //     .catch(err => {
+    //     //         console.log(err);
+    //     //     })
+    // }
+    const RestaurantSchema = yup.object().shape({
+        restaurantName: yup.string().required('Required'),
+        address: yup.string().required('Required'),
+        telephone: yup.string().required(),
+        url: yup.string().required(),
+        FastFood: yup.boolean().required(),
+        Hotpot: yup.boolean().required(),
+        Japanese: yup.boolean().required(),
+        Restaurant: yup.boolean().required(),
+        Snacks: yup.boolean().required(),
+        SteakHouse: yup.boolean().required(),
+        Thai: yup.boolean().required()
+      
+    });
     return (
         <>
-            <form>
-                <div className="form-group">
-                    <label>Name</label>
-                    <input type="text" className="form-control" placeholder="Name Restaurant" onChange={changeNameHandler} value={name} />
-                </div>
+            <Formik
+                validationSchema={RestaurantSchema}
+                onSubmit={values => {
+                    // axios.post(`https://tander-webservice.herokuapp.com/users`, values)
+                    //     .then((res, err) => {
+                    //         if (err) console.error(">>>>>>>>>>>>>>>>>>>>>\n" + err)
+                    //         else {
+                    //             console.log(res);
+                    //             console.log(res.data);
+                    //             alert("Sign up success !")
+                    //             history.push(`/sign-in`)
+                    //         }
+                    //     })
+                    console.log(values);
+                }}
+                initialValues={{
+                    FastFood: false,
+                    Hotpot: false,
+                    Japanese: false,
+                    Restaurant: false,
+                    Snacks: false,
+                    SteakHouse: false,
+                    Thai: false
+                }}
+            >
+                {({
+                    handleSubmit,
+                    handleChange,
+                    values,
+                    touched,
+                    isValid,
+                    errors,
+                }) => (
+                        <Form noValidate onSubmit={handleSubmit}>
+                            <Form.Row>
+                                <Form.Group as={Col} md="12" controlId="validationFormik01">
+                                    <Form.Label>Restaurant Name</Form.Label>
+                                    <Form.Control
+                                        type="text"
+                                        name="restaurantName"
+                                        placeholder="restaurantName"
+                                        value={values.restaurantName}
+                                        onChange={handleChange}
+                                    />
+                                </Form.Group>
+                            </Form.Row>
+                            <Form.Row>
+                                <Form.Group as={Col} md="12" controlId="validationFormik02">
+                                    <Form.Label>Address</Form.Label>
+                                    <Form.Control
+                                        type="text"
+                                        name="address"
+                                        placeholder="Enter your address"
+                                        value={values.address}
+                                        onChange={handleChange}
+                                    />
+                                </Form.Group>
+                            </Form.Row>
+                            <Form.Row>
+                                <Form.Group as={Col} md="12" controlId="validationFormikUsername">
+                                    <Form.Label>Telephone Number</Form.Label>
+                                    <Form.Control
+                                        type="text"
+                                        name="telephone"
+                                        value={values.telephone}
+                                        onChange={handleChange}
+                                    />
+                                </Form.Group>
+                            </Form.Row>
+                            <Form.Row>
+                                <Form.Group as={Col} md="12" controlId="validationFormikUsername">
+                                    <Form.Label>URL</Form.Label>
+                                    <Form.Control
+                                        type="text"
+                                        name="url"
+                                        value={values.url}
+                                        onChange={handleChange}
+                                    />
+                                </Form.Group>
+                            </Form.Row>
+                            <h5>Catagories</h5>
+                            <br/>
+                            <Form.Row>
+                                <Form.Group as={Col} md="1" controlId="validationFormik03">
+                                    <Form.Label>FastFood</Form.Label>
+                                    <Form.Control
+                                        type="checkbox"
+                                        name="FastFood"
+                                        value={values.FastFood}
+                                        onChange={handleChange}
+                                        checked={values.FastFood}
+                                        
+                                    />
+                                </Form.Group>
 
-                <div class="form-group">
-                    <label for="exampleFormControlTextarea1">Address</label>
-                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" onChange={changeAddressHandler} value={address}></textarea>
-                </div>
-                <div className="form-group">
-                    <label>Telephone Number</label>
-                    <input type="text" className="form-control" placeholder="XX-XXX-XXXX" onChange={changeTelHandler} value={telephone} />
-                </div>
+                            </Form.Row>
+                            <Form.Row>
+                                <Form.Group as={Col} md="1" controlId="validationFormik03">
+                                    <Form.Label>Hotpot</Form.Label>
+                                    <Form.Control
+                                        type="checkbox"
+                                        name="Hotpot"
+                                        value={values.Hotpot}
+                                        onChange={handleChange}
+                                        checked={values.Hotpot}
+                                    />
+                                </Form.Group>
 
-                <div className="form-group">
-                    <label>URL</label>
-                    <input type="email" className="form-control" placeholder="Enter URL" onChange={changeURLHandler} value={url} />
-                </div>
-                <label>Catagories</label>
-                <div className="form-check" >
-                    <div>
-                        <label className="form-check-label">
-                            <input type="checkbox"
-                                checked={isBuffet}
-                                onChange={onChangeBuffet}
-                                className="form-check-input"
-                                value="Buffet"
-                                name ="style"
+                            </Form.Row>
+                            <Form.Row>
+                                <Form.Group as={Col} md="1" controlId="validationFormik03">
+                                    <Form.Label>Japanese</Form.Label>
+                                    <Form.Control
+                                        type="checkbox"
+                                        name="Japanese"
+                                        value={values.Japanese}
+                                        onChange={handleChange}
+                                        checked={values.Japanese}
+                                    />
+                                </Form.Group>
 
-                            />
-                                    Buffet
-                </label>
-                    </div><div>
-                        <label className="form-check-label">
-                            <input type="checkbox"
-                                checked={isFastFood}
-                                onChange={onChangeFastFood}
-                                className="form-check-input"
-                                value="FastFood"
-                                name ="style"
+                            </Form.Row>
+                            <Form.Row>
+                                <Form.Group as={Col} md="1" controlId="validationFormik03">
+                                    <Form.Label>Snack</Form.Label>
+                                    <Form.Control
+                                        type="checkbox"
+                                        name="isSnacks"
+                                        value={values.isSnacks}
+                                        onChange={handleChange}
+                                        checked={values.isSnacks}
+                                    />
+                                </Form.Group>
 
+                            </Form.Row>
+                            <Form.Row>
+                                <Form.Group as={Col} md="1" controlId="validationFormik03">
+                                    <Form.Label>SteakHouse</Form.Label>
+                                    <Form.Control
+                                        type="checkbox"
+                                        name="SteakHouse"
+                                        value={values.SteakHouse}
+                                        onChange={handleChange}
+                                        checked={values.SteakHouse}
+                                    />
+                                </Form.Group>
 
-                            />
-                                    Fastfood
-                </label>
-                    </div><div>
-                        <label className="form-check-label">
-                            <input type="checkbox"
-                                checked={isJapaneseFood}
-                                onChange={onChangeJapan}
-                                className="form-check-input"
-                                value = "JapaneseFood"
-                                name = "style"
+                            </Form.Row>
+                            <Form.Row>
+                                <Form.Group as={Col} md="1" controlId="validationFormik03">
+                                    <Form.Label>Thai</Form.Label>
+                                    <Form.Control
+                                        type="checkbox"
+                                        name="Thai"
+                                        value={values.Thai}
+                                        onChange={handleChange}
+                                        checked={values.Thai}
+                                    />
+                                </Form.Group>
 
-                            />
-                                    Japanese food
-                </label></div>
-                    <div>
-                        <label className="form-check-label">
-                            <input type="checkbox"
-                                checked={isShabu}
-                                onChange={onChangeShabu}
-                                className="form-check-input"
-                                value = "Shabu"
-                                name = "style"
+                            </Form.Row>
+                            
+                            <Button type="submit">Submit</Button>
+                        </Form>
+                    )
+                }
 
-                            />
-                                    Shabu
-                </label></div>
-
-
-                </div>
-                <br />
-
-                <div className="form-group">
-                    <div class="custom-file">
-                        <label>Picture</label>
-                        <input type="file" class="custom-file-input" id="customFile" />
-                        <label class="custom-file-label" htmlFor="customFile">Choose file</label>
-                    </div>
-                </div>
-            </form>
-
-            <Button variant="primary" onClick={submitHandle}>
-                Save Changes
-              </Button>
-
+            </Formik>
         </>
     )
 }
 
-// export default class formRestaurant extends Component {
-//     constructor(props) {
-//         super(props);
-//         this.state = {
-//             name: '',
-//             address: '',
-//             telephone: '',
-//             url: '',
-//             Buffet:false,
-//             Shabu:false,
-//             JapaneseFood:false,
-//         }
-
-//     }
-//     changeNameHandler = event => {
-//         this.setState({
-//             name: event.target.value
-//         })
-//     }
-//     changeAddressHandler = event => {
-//         this.setState({
-//             address: event.target.value
-//         })
-//     }
-//     changeTelHandler = event => {
-//         this.setState({
-//             telephone: event.target.value
-//         })
-//     }
-//     changeURLHandler = event => {
-//         this.setState({
-//             url: event.target.value
-//         })
-//     }
-//     changeCataHandler = event => {
-//         this.setState({
-//             catagories: event.target.value
-//         })
-//     }
-//     onChangeBuffet = () => {
-//         this.setState({
-//           Buffet: true
-//         })
-//       }
-//       onChangeJapan = () => {
-//         this.setState({
-//             JapaneseFood: true
-
-//         });
-//       }
-//       onChangeShabu= () => {
-//         this.setState({
-//             Shabu: true
-//         });
-//       }
-
-
-//     submitHandle = event => {
-//         // const { history } = this.props;
-//         event.preventDefault();
-// let checkArray = [];
-//     for (var key in this.state) {
-//       if (this.state[key] === true) {
-//         checkArray.push(key);
-//       }
-//     }
-//     let checkData = {
-//         checkbox : checkArray.toString()
-//       };
-//       console.log(checkArray.toString());
-
-//         const restaurant = {
-//             name: this.state.name,
-//             address: this.state.address,
-//             telephone: this.state.telephone,
-//             url: this.state.url,
-//             catagories: checkData,
-//         }
-
-//         console.log(restaurant);
-//         // axios.post(``, restaurant)
-//         //     .then(res => {
-//         //         console.log(res);
-//         //         this.setState({ loggedIn: true });
-//         //         history.push('/restaurant')
-//         //     })
-//         //     .catch(err => {
-//         //         console.log(err);
-//         //     })
-
-
-//     }
-//     render() {
-//         return (
-//             <div>
-//                 <form>
-//                     <div className="form-group">
-//                         <label>Name</label>
-//                         <input type="text" className="form-control" placeholder="Name Restaurant" onChange={this.changeNameHandler} />
-//                     </div>
-
-//                     <div class="form-group">
-//                         <label for="exampleFormControlTextarea1">Address</label>
-//                         <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" onChange={this.changeAddressHandler}></textarea>
-//                     </div>
-//                     <div className="form-group">
-//                         <label>Telephone Number</label>
-//                         <input type="text" className="form-control" placeholder="XX-XXX-XXXX" onChange={this.changeTelHandler} />
-//                     </div>
-
-//                     <div className="form-group">
-//                         <label>URL</label>
-//                         <input type="email" className="form-control" placeholder="Enter URL" onChange={this.changeURLHandler} />
-//                     </div>
-//                     <label>Catagories</label>
-//                     <div className="form-check">
-//                         <div>
-//                             <label className="form-check-label">
-//                                 <input type="checkbox"
-//                                     checked={this.state.isBuffet}
-//                                     onChange={this.onChangeBuffet}
-//                                     className="form-check-input"
-//                                 />
-//                                 Buffet
-//             </label>
-//                         </div><div>
-//                             <label className="form-check-label">
-//                                 <input type="checkbox"
-//                                     checked={this.state.isJapan}
-//                                     onChange={this.onChangeJapan}
-//                                     className="form-check-input"
-//                                 />
-//                                 Japanese food
-//             </label></div>
-//             <div>
-//                             <label className="form-check-label">
-//                                 <input type="checkbox"
-//                                     checked={this.state.isShabu}
-//                                     onChange={this.onChangeShabu}
-//                                     className="form-check-input"
-//                                 />
-//                                 Shabu
-//             </label></div>
-
-//                     </div>
-//                     <br/>
-
-//                     <div className="form-group">
-//                         <div class="custom-file">
-//                             <label>Picture</label>
-//                             <input type="file" class="custom-file-input" id="customFile" />
-//                             <label class="custom-file-label" htmlFor="customFile">Choose file</label>
-//                         </div>
-//                     </div>
-//                 </form>
-
-//           <Button variant="primary" onClick={this.submitHandle}>
-//             Save Changes
-//           </Button>
-
-//             </div>
-//         )
-//     }
-// }
