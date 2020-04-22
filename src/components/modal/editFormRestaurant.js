@@ -1,5 +1,5 @@
 import React, { useState, Component } from 'react'
-import FormRestaurant from './formRestaurant';
+import FormRestaurant from '../form/formRestaurant';
 import {Button,ButtonToolbar,Modal} from 'react-bootstrap';
 
 export default function EditFormRestaurant () {
@@ -11,7 +11,7 @@ export default function EditFormRestaurant () {
                  return (
                      <>
                          <ButtonToolbar>
-                             <Button variant="secondary" onClick={() => setModalShow(true)}>Edit</Button>
+                             <Button variant="dark" onClick={() => setModalShow(true)}>Edit</Button>
                            <Modal
                                  size="lg"
                                  show={modalShow}

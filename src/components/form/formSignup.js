@@ -30,7 +30,7 @@ export default function SignUp() {
             <Formik
                 validationSchema={SignupSchema}
                 onSubmit={values => {
-                    // axios.post(`https://tander-webservice.herokuapp.com/users`, values)
+                    // axios.post(`https://tander-webservice.an.r.appspot.com/users`, values)
                     //     .then((res, err) => {
                     //         if (err) console.error(">>>>>>>>>>>>>>>>>>>>>\n" + err)
                     //         else {
@@ -62,7 +62,7 @@ export default function SignUp() {
                         <Form noValidate onSubmit={handleSubmit}>
                             <h3>Sign in</h3>
                             <Form.Row>
-                                <Form.Group as={Col} md="4" controlId="validationFormik01">
+                                <Form.Group as={Col} md="6" controlId="validationFormik01">
                                     <Form.Label>First name</Form.Label>
                                     <Form.Control
                                         type="text"
@@ -74,7 +74,7 @@ export default function SignUp() {
                                     />
 
                                 </Form.Group>
-                                <Form.Group as={Col} md="4" controlId="validationFormik02">
+                                <Form.Group as={Col} md="6" controlId="validationFormik02">
                                     <Form.Label>Last name</Form.Label>
                                     <Form.Control
                                         type="text"
@@ -87,7 +87,10 @@ export default function SignUp() {
 
 
                                 </Form.Group>
-                                <Form.Group as={Col} md="4" controlId="validationFormikUsername">
+                               
+                            </Form.Row>
+                            <Form.Row> 
+                                <Form.Group as={Col} md="6" controlId="validationFormikUsername">
                                     <Form.Label>Username</Form.Label>
                                     <InputGroup>
                                         <InputGroup.Prepend>
@@ -109,9 +112,7 @@ export default function SignUp() {
                                         </Form.Control.Feedback>
                                     </InputGroup>
                                 </Form.Group>
-                            </Form.Row>
-                            <Form.Row>
-                                <Form.Group as={Col} md="12" controlId="validationFormik03">
+                                <Form.Group as={Col} md="6" controlId="validationFormik03">
                                     <Form.Label>Email Address</Form.Label>
                                     <Form.Control
                                         type="email"

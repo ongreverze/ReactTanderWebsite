@@ -30,7 +30,7 @@ export default function LoginPage() {
         }
 
         console.log(_user);
-        axios.post(`https://tander-webservice.herokuapp.com/users/login/`, _user)
+        axios.post(`https://tander-webservice.an.r.appspot.com/users/login/`, _user)
             .then(res => {
                 const _data = res.data.accessToken;
                 console.log(res);

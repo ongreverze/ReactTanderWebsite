@@ -4,7 +4,8 @@ import FormRestaurant from '../components/form/formRestaurant'
 import { Modal, Button, ButtonToolbar, CardColumns, Card } from 'react-bootstrap';
 import {UserContext} from '../components/Usercontext'
 import axios from 'axios';
-import EditFormRestaurant from '../components/form/editFormRestaurant';
+import EditFormRestaurant from '../components/modal/editFormRestaurant';
+import AddPromotion from '../components/modal/addPromotion';
 
 
 
@@ -15,7 +16,7 @@ export default function Restaurant() {
 
     const getRestaurantsData = () => {
         axios
-            .get('https://tander-webservice.herokuapp.com/restaurants')
+            .get('https://tander-webservice.an.r.appspot.com/restaurants')
             .then(res => {
                 const data = res.data
                 console.log(data)
@@ -31,9 +32,7 @@ export default function Restaurant() {
                             </Card.Body>
                             <Card.Footer>
                                 <EditFormRestaurant />
-                                <Button variant="danger" >
-                                    Delete
-                                </Button>
+                                <AddPromotion/>
                             </Card.Footer>
                         </Card>
 

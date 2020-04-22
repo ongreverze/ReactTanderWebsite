@@ -1,5 +1,5 @@
 import React, { Component, useState } from 'react'
-import FormPromotion from './formPromotion';
+import FormPromotion from '../form/formPromotion';
 import { Button, ButtonToolbar, Modal } from 'react-bootstrap';
 
 export default function EditFormPromotion() {
@@ -11,7 +11,7 @@ export default function EditFormPromotion() {
     return (
         <>
             <ButtonToolbar>
-                <Button variant="secondary" onClick={() => setModalShow(true)}>Edit</Button>
+                <Button variant="dark" onClick={() => setModalShow(true)}>Edit</Button>
                 <Modal
                     size="lg"
                     show={modalShow}

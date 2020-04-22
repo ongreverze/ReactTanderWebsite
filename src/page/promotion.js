@@ -2,7 +2,7 @@ import React, { Component, useState , useContext , useEffect } from 'react'
 import NavbarLoggedin from '../components/navbar/navbarloggedin'
 import FormPromotion from '../components/form/formPromotion'
 import { Modal, Button, ButtonToolbar, CardColumns, Card } from 'react-bootstrap';
-import EditFormPromotion from '../components/form/editFormPromotion'
+import EditFormPromotion from '../components/modal/editFormPromotion'
 import axios from 'axios';
 import { UserContext } from '../components/Usercontext';
 
@@ -19,7 +19,7 @@ export default function Promotion() {
         };
         console.log(accessToken);
         axios
-            .get('https://tander-webservice.herokuapp.com/promotions',token
+            .get('https://tander-webservice.an.r.appspot.com/promotions',token
             ).then(res => {
                 const data = res.data
                 console.log(data)
