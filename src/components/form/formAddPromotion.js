@@ -6,6 +6,7 @@ export default function FormAddPromotion() {
     const [promotions, setPromotions] = useState([]);
     const [selectedPromotion, setselectedPromotion] = useState('');
     const [selectedPromotions, setselectedPromotions] = useState([]);
+
     const getPromotionsData = () => {
         axios
             .get('https://tander-webservice.an.r.appspot.com/restaurants')
@@ -13,7 +14,7 @@ export default function FormAddPromotion() {
                 const data = res.data
                 console.log(data)
                 const promotions = data.map((items, key) => {
-                    if (key===0) setselectedPromotion(items.name)
+                    if (key === 0) setselectedPromotion(items.name)
                     return <option value={items.name} key={key}>{items.name}</option>
                 })
                 setPromotions(promotions);
@@ -23,15 +24,21 @@ export default function FormAddPromotion() {
                 console.log(error)
             })
     }
-    // const addPromtoionsToTable = () => {
-    //     const selectedPromotions = promotions.map(selected => {
-    //         return <td>{promotions.name}</td>
-    //     })
-    // }
+
+    const removeItem = (index) => {
+        let temp = selectedPromotions.filter((val, idx) => idx !== index)
+        setselectedPromotions(temp);
+    }
 
     useEffect(() => {
         getPromotionsData()
+        console.log(selectedPromotions);
     }, []);
+
+    useEffect(() => {
+        console.log(selectedPromotions);
+    }, [selectedPromotions]);
+
     return (
         <>
             <Form>
@@ -43,7 +50,6 @@ export default function FormAddPromotion() {
                     <Button onClick={() => setselectedPromotions([...selectedPromotions, selectedPromotion])}>Add</Button>
                 </Form.Group>
             </Form>
-
             <Table striped bordered hover variant="dark">
                 <thead>
                     <tr>
@@ -55,12 +61,11 @@ export default function FormAddPromotion() {
                     {
                         selectedPromotions.map((value, index) => (
                             <tr key={index}>
-                                <td>{index+1}</td>
+                                <td>{index + 1}</td>
                                 <td>{value}</td>
-                                <td><Button variant="danger">X</Button></td>
+                                <td><Button variant="danger" onClick={() => removeItem(index)}>X</Button></td>
                             </tr>
                         ))
-
                     }
                 </tbody>
             </Table>
