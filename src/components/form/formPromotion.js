@@ -1,5 +1,5 @@
-import React, { useState, useContext } from 'react'
-import { Form, Col, Button, InputGroup } from 'react-bootstrap'
+import React, { useContext, useState } from 'react'
+import { Form, Col, Button } from 'react-bootstrap'
 import axios from 'axios'
 import { UserContext } from '../Usercontext';
 import { Formik } from 'formik';
@@ -9,32 +9,45 @@ export default function FormPromotion() {
     const { user } = useContext(UserContext);
     const { accessToken } = useContext(UserContext);
 
-    const PromotionSchema = yup.object().shape({
-        promotionName: yup.string().required('Required'),
-        description: yup.string().required('Required'),
-        telephone: yup.string().required(),
-        url: yup.string().required(),
-        validTime: yup.date().required(),
-        endTime: yup.date().required(),
-        isVisible: yup.boolean().required(),
 
+    const PromotionSchema = yup.object().shape({
+        promotionName: yup.string(),
+        description: yup.string(),
+        telephone: yup.string(),
+        url: yup.string(),
+        validTime: yup.date(),
+        endTime: yup.date(),
+        isVisible: yup.boolean(),
+        file: yup.mixed().required(),
     });
-    const config = {	
-        headers: { Authorization: `Bearer ${accessToken}` }	
+    const config = {
+        headers: { Authorization: `Bearer ${accessToken}` }
     };
+
     return (
         <>
             <Formik
                 validationSchema={PromotionSchema}
                 onSubmit={values => {
-                    axios.post(`https://tander-webservice.an.r.appspot.com/users`, values, config ,"user")
-                        .then((res, err) => {
-                            if (err) console.error(">>>>>>>>>>>>>>>>>>>>>\n" + err)
-                            else {
-                                console.log(res);
-                                console.log(res.data);
-                            }
-                        })
+                    // axios.post(`https://tander-webservice.an.r.appspot.com/users`, values, config, "user")
+                    //     .then((res, err) => {
+                    //         if (err) console.error(">>>>>>>>>>>>>>>>>>>>>\n" + err)
+                    //         else {
+                    //             console.log(res);
+                    //             console.log(res.data);
+                    //         }
+                    //     })
+                    alert(
+                        JSON.stringify(
+                          { 
+                            fileName: values.file.name, 
+                            type: values.file.type,
+                            size: `${values.file.size} bytes`
+                          },
+                          null,
+                          2
+                        )
+                      );
                     console.log(values);
                 }}
                 initialValues={{
@@ -42,15 +55,15 @@ export default function FormPromotion() {
                     description: '',
                     isVisible: false,
                     ownerUsername: user,
+                    file: null
                 }}
             >
                 {({
                     handleSubmit,
                     handleChange,
-                    handleBlur,
+                    setFieldValue,
                     values,
                     touched,
-                    isValid,
                     errors,
                 }) => (
                         <Form noValidate onSubmit={handleSubmit}>
@@ -138,6 +151,11 @@ export default function FormPromotion() {
                                     />
                                 </Form.Group>
 
+                            </Form.Row>
+                            <Form.Row>
+                                <input id="file" name="file" type="file" onChange={(event) => {
+                                    setFieldValue("file", event.currentTarget.files[0]);
+                                }} className="form-control" />
                             </Form.Row>
                             <Button type="submit">Submit</Button>
                         </Form>

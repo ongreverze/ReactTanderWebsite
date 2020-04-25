@@ -15,7 +15,8 @@ export default function FormAddPromotion() {
                 console.log(data)
                 const promotions = data.map((items, key) => {
                     if (key === 0) setselectedPromotion(items.name)
-                    return <option value={items.name} key={key}>{items.name}</option>
+                    return <option dataid={items._id} dataname={items.name}
+                     key={key}>{items.name}</option>
                 })
                 setPromotions(promotions);
                 console.log(promotions);
@@ -24,15 +25,15 @@ export default function FormAddPromotion() {
                 console.log(error)
             })
     }
-
     const removeItem = (index) => {
         let temp = selectedPromotions.filter((val, idx) => idx !== index)
         setselectedPromotions(temp);
     }
-
+    const sendPromotions = (id) => {
+        console.log(id);
+    }
     useEffect(() => {
         getPromotionsData()
-        console.log(selectedPromotions);
     }, []);
 
     useEffect(() => {
@@ -68,7 +69,9 @@ export default function FormAddPromotion() {
                         ))
                     }
                 </tbody>
+
             </Table>
+            <Button variant="danger" onClick={() => sendPromotions()}>X</Button>
         </>
     );
 }

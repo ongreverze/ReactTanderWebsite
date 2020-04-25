@@ -3,13 +3,13 @@ import axios from 'axios';
 import NavbarLogin from "../navbar/navbar";
 import { useHistory } from 'react-router-dom';
 import { Form, Col, Button, InputGroup } from 'react-bootstrap';
-import { Formik} from 'formik';
+import { Formik } from 'formik';
 import * as yup from 'yup';
 
 
 export default function SignUp() {
     let history = useHistory();
-    
+
     const SignupSchema = yup.object().shape({
         firstname: yup.string().required('Required'),
         lastname: yup.string().required('Required'),
@@ -22,7 +22,6 @@ export default function SignUp() {
         birthdate: yup.date().required(),
         telephone: yup.string().required(),
         password: yup.string().required(),
-        
     });
     return (
         <>
@@ -47,7 +46,7 @@ export default function SignUp() {
                     lastname: '',
                     email: '',
                     role: 'user',
-                    owners :[]
+                    owners: []
                 }}
             >
                 {({
@@ -67,7 +66,7 @@ export default function SignUp() {
                                     <Form.Control
                                         type="text"
                                         name="firstname"
-                                        placeholder = "Firstname"
+                                        placeholder="Firstname"
                                         value={values.firstname}
                                         onChange={handleChange}
                                         isValid={touched.firstname && !errors.firstname}
@@ -79,7 +78,7 @@ export default function SignUp() {
                                     <Form.Control
                                         type="text"
                                         name="lastname"
-                                        placeholder = "Lastname"
+                                        placeholder="Lastname"
                                         value={values.lastname}
                                         onChange={handleChange}
                                         isValid={touched.lastname && !errors.lastname}
@@ -87,9 +86,9 @@ export default function SignUp() {
 
 
                                 </Form.Group>
-                               
+
                             </Form.Row>
-                            <Form.Row> 
+                            <Form.Row>
                                 <Form.Group as={Col} md="6" controlId="validationFormikUsername">
                                     <Form.Label>Username</Form.Label>
                                     <InputGroup>

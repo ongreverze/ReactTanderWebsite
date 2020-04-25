@@ -78,14 +78,3 @@ export default function Restaurant() {
         </>
     )
 }
-
-// export default class restaurant extends Component {
-//     render() {
-//         return (
-//             <div>
-                
-
-//             </div>
-//         )
-//     }
-// }
