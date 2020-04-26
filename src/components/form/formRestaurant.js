@@ -1,51 +1,54 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import { Form, Col, Button } from 'react-bootstrap';
 import { Formik } from 'formik';
 import * as yup from 'yup';
 import { UserContext } from '../Usercontext';
 import MapComponent from '../mapcomponent';
-
+import axios from 'axios'
 export default function FormRestaurant() {
   const { user } = useContext(UserContext);
+  const [latlng, setLatlng] = useState({
+    lat: 0,
+    lng: 0
+  });
+  const { accessToken } = useContext(UserContext);
+  const token = {
+    headers: { Authorization: `Bearer ${accessToken}` }
+};
   const RestaurantSchema = yup.object().shape({
-    restaurantName: yup.string().required('Required'),
-    address: yup.string().required('Required'),
-    telephone: yup.string().required(),
-    url: yup.string().required(),
-    FastFood: yup.boolean().required(),
-    Hotpot: yup.boolean().required(),
-    Japanese: yup.boolean().required(),
-    Restaurant: yup.boolean().required(),
-    Snacks: yup.boolean().required(),
-    SteakHouse: yup.boolean().required(),
-    Thai: yup.boolean().required()
-
+    name: yup.string().required('Required'),
+    address: yup.string(),
+    startPrice: yup.string(),
+    url: yup.string(),
   });
   return (
     <>
+      <pre>{JSON.stringify(latlng)}</pre>
       <Formik
         validationSchema={RestaurantSchema}
         onSubmit={values => {
-          // axios.post(`https://tander-webservice.an.r.appspot.com/users`, values)
-          //     .then((res, err) => {
-          //         if (err) console.error(">>>>>>>>>>>>>>>>>>>>>\n" + err)
-          //         else {
-          //             console.log(res);
-          //             console.log(res.data);
-          //             alert("Sign up success !")
-          //             history.push(`/sign-in`)
-          //         }
-          //     })
+          values = { ...values, catagories: values.catagories.filter(e => e), position:{
+            lat: latlng.lat,
+            lon: latlng.lng
+          } }
+          axios.post(`https://tander-webservice.an.r.appspot.com/restaurants`, values , token)
+              .then((res, err) => {
+                  if (err) console.error(">>>>>>>>>>>>>>>>>>>>>\n" + err)
+                  else {
+                      console.log(res);
+                      console.log(res.data);
+                      alert("Add restaurant success !")
+                  }
+              })
           console.log(values);
         }}
         initialValues={{
-          FastFood: false,
-          Hotpot: false,
-          Japanese: false,
-          Restaurant: false,
-          Snacks: false,
-          SteakHouse: false,
-          Thai: false
+          catagories: [],
+          isPartner: true,
+          position: {
+            lat: 0,
+            lon: 0
+          }
         }}
       >
         {({
@@ -55,16 +58,18 @@ export default function FormRestaurant() {
           touched,
           isValid,
           errors,
+          setFieldValue,
+
         }) => (
-            <Form noValidate onSubmit={handleSubmit}>
+            <Form noValidate onSubmit={handleSubmit} >
               <Form.Row>
                 <Form.Group as={Col} md="12" controlId="validationFormik01">
                   <Form.Label>Restaurant Name</Form.Label>
                   <Form.Control
                     type="text"
-                    name="restaurantName"
-                    placeholder="restaurantName"
-                    value={values.restaurantName}
+                    name="name"
+                    placeholder="Enter your restaurant name"
+                    value={values.name}
                     onChange={handleChange}
                   />
                 </Form.Group>
@@ -83,11 +88,12 @@ export default function FormRestaurant() {
               </Form.Row>
               <Form.Row>
                 <Form.Group as={Col} md="12" controlId="validationFormikUsername">
-                  <Form.Label>Telephone Number</Form.Label>
+                  <Form.Label>StartPrice</Form.Label>
                   <Form.Control
                     type="text"
-                    name="telephone"
-                    value={values.telephone}
+                    name="startPrice"
+                    placeholder="Enter your start price"
+                    value={values.startPrice}
                     onChange={handleChange}
                   />
                 </Form.Group>
@@ -112,33 +118,56 @@ export default function FormRestaurant() {
                     type="checkbox"
                     name="FastFood"
                     value={values.FastFood}
-                    onChange={handleChange}
+                    onChange={(event) => {
+                      const value = event.target.checked ? 'fastfood' : null
+                      setFieldValue('catagories.0', value)
+                    }
+                    }
                     checked={values.FastFood}
 
                   />
                 </Form.Group>
-<Form.Group as={Col} md="3" controlId="validationFormik03">
+                <Form.Group as={Col} md="3" controlId="validationFormik03">
                   <Form.Label>Hotpot</Form.Label>
                   <Form.Control
                     type="checkbox"
                     name="Hotpot"
                     value={values.Hotpot}
-                    onChange={handleChange}
+                    onChange={(event) => {
+                      const value = event.target.checked ? 'hotpot' : null
+                      setFieldValue('catagories.1', value)
+                    }
+                    }
                     checked={values.Hotpot}
                   />
-                </Form.Group> 
+                </Form.Group>
                 <Form.Group as={Col} md="3" controlId="validationFormik03">
                   <Form.Label>Japanese</Form.Label>
                   <Form.Control
                     type="checkbox"
                     name="Japanese"
                     value={values.Japanese}
-                    onChange={handleChange}
+                    onChange={(event) => {
+                      const value = event.target.checked ? 'japanese' : null
+                      setFieldValue('catagories.2', value)
+                    }
+                    }
                     checked={values.Japanese}
                   />
                 </Form.Group>
-            
-               
+                <Form.Group as={Col} md="3" controlId="validationFormik03">
+                  <Form.Label>Pizza</Form.Label>
+                  <Form.Control
+                    type="checkbox"
+                    name="Pizza"
+                    value={values.Pizza}
+                    onChange={(event) => {
+                      const value = event.target.checked ? 'pizza' : null
+                      setFieldValue('catagories.3', value)
+                    }}
+                    checked={values.Pizza}
+                  />
+                </Form.Group>
 
               </Form.Row>
               <Form.Row>
@@ -146,20 +175,27 @@ export default function FormRestaurant() {
                   <Form.Label>Snack</Form.Label>
                   <Form.Control
                     type="checkbox"
-                    name="isSnacks"
-                    value={values.isSnacks}
-                    onChange={handleChange}
-                    checked={values.isSnacks}
+                    name="Snacks"
+                    value={values.Snacks}
+                    onChange={(event) => {
+                      const value = event.target.checked ? 'snacks' : null
+                      setFieldValue('catagories.4', value)
+                    }
+                    }
+                    checked={values.Snacks}
                   />
                 </Form.Group>
- <Form.Group as={Col} md="3" controlId="validationFormik03">
+                <Form.Group as={Col} md="3" controlId="validationFormik03">
                   <Form.Label>Thai</Form.Label>
                   <Form.Control
                     type="checkbox"
-                    name="Thai"
-                    value={values.Thai}
-                    onChange={handleChange}
-                    checked={values.Thai}
+                    name="thai"
+                    value={values.thai}
+                    onChange={(event) => {
+                      const value = event.target.checked ? 'thai' : null
+                      setFieldValue('catagories.5', value)
+                    }}
+                    checked={values.thai}
                   />
                 </Form.Group>
                 <Form.Group as={Col} md="3" controlId="validationFormik03">
@@ -168,12 +204,82 @@ export default function FormRestaurant() {
                     type="checkbox"
                     name="SteakHouse"
                     value={values.SteakHouse}
-                    onChange={handleChange}
+                    onChange={(event) => {
+                      const value = event.target.checked ? 'steakhouse' : null
+                      setFieldValue('catagories.6', value)
+                    }}
                     checked={values.SteakHouse}
                   />
                 </Form.Group>
+                <Form.Group as={Col} md="3" controlId="validationFormik03">
+                  <Form.Label>Chinese</Form.Label>
+                  <Form.Control
+                    type="checkbox"
+                    name="Chinese"
+                    value={values.Chinese}
+                    onChange={(event) => {
+                      const value = event.target.checked ? 'chinese' : null
+                      setFieldValue('catagories.7', value)
+                    }}
+                    checked={values.Chinese}
+                  />
+                </Form.Group>
               </Form.Row>
-              <MapComponent/>
+              <Form.Row>
+                <Form.Group as={Col} md="3" controlId="validationFormikUsername">
+                  <Form.Label>Italian</Form.Label>
+                  <Form.Control
+                    type="checkbox"
+                    name="Italian"
+                    value={values.Italian}
+                    onChange={(event) => {
+                      const value = event.target.checked ? 'italian' : null
+                      setFieldValue('catagories.8', value)
+                    }}
+                    checked={values.Italian}
+                  />
+                </Form.Group>
+                <Form.Group as={Col} md="3" controlId="validationFormikUsername">
+                  <Form.Label>Restaurant</Form.Label>
+                  <Form.Control
+                    type="checkbox"
+                    name="Restaurant"
+                    value={values.Restaurant}
+                    onChange={(event) => {
+                      const value = event.target.checked ? 'restaurant' : null
+                      setFieldValue('catagories.9', value)
+                    }}
+                    checked={values.Restaurant}
+                  />
+                </Form.Group>
+                <Form.Group as={Col} md="3" controlId="validationFormikUsername">
+                  <Form.Label>Sushi</Form.Label>
+                  <Form.Control
+                    type="checkbox"
+                    name="Sushi"
+                    value={values.Sushi}
+                    onChange={(event) => {
+                      const value = event.target.checked ? 'sushi' : null
+                      setFieldValue('catagories.10', value)
+                    }}
+                    checked={values.Sushi}
+                  />
+                </Form.Group>
+                <Form.Group as={Col} md="3" controlId="validationFormikUsername">
+                  <Form.Label>Barbecue</Form.Label>
+                  <Form.Control
+                    type="checkbox"
+                    name="Barbecue"
+                    value={values.Barbecue}
+                    onChange={(event) => {
+                      const value = event.target.checked ? 'barbecue' : null
+                      setFieldValue('catagories.11', value)
+                    }}
+                    checked={values.Barbecue}
+                  />
+                </Form.Group>
+              </Form.Row>
+              <MapComponent setLatlng={setLatlng}/>
               <Button type="submit">Submit</Button>
             </Form>
           )

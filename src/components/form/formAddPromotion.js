@@ -29,9 +29,6 @@ export default function FormAddPromotion() {
         let temp = selectedPromotions.filter((val, idx) => idx !== index)
         setselectedPromotions(temp);
     }
-    const sendPromotions = (id) => {
-        console.log(id);
-    }
     useEffect(() => {
         getPromotionsData()
     }, []);
@@ -71,7 +68,6 @@ export default function FormAddPromotion() {
                 </tbody>
 
             </Table>
-            <Button variant="danger" onClick={() => sendPromotions()}>X</Button>
         </>
     );
 }

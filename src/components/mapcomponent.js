@@ -1,10 +1,10 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import mapboxgl from "mapbox-gl";
 
 
 mapboxgl.accessToken = 'pk.eyJ1Ijoib25ncmV2ZXJ6ZSIsImEiOiJjazlmZjMxcnAwYXQ4M2VvMzVzOGExMWhxIn0.RDgkBU9if_Q_O7iAfnA0_g';
 
-const Map = () => {
+const Map = (props) => {
   const mapContainerRef = useRef(null);
 
   // initialize map when component mounts
@@ -17,12 +17,20 @@ const Map = () => {
       zoom: 13.5
     });
 
-    map.on('click', function(e) {
-      alert(e.lngLat.wrap());
-  });
+    map.on('click', (e) => {
+      alert(e.lngLat);
+      var _lat = e.lngLat.lat;
+      var _long = e.lngLat.lng;
+      console.log(_lat);
+      console.log(_long);
+      props.setLatlng({
+        lat : _lat,
+        lng : _long
+      })
+
+    });
     // add navigation control (zoom buttons)
     map.addControl(new mapboxgl.NavigationControl(), "bottom-right");
-
 
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -30,44 +38,6 @@ const Map = () => {
 };
 
 export default Map;
-
-
-// import React, { Component } from 'react';
-// import ReactDOM from 'react-dom';
-// import mapboxgl from 'mapbox-gl';
-
-// mapboxgl.accessToken = 'pk.eyJ1Ijoib25ncmV2ZXJ6ZSIsImEiOiJjazlmZjMxcnAwYXQ4M2VvMzVzOGExMWhxIn0.RDgkBU9if_Q_O7iAfnA0_g';
-
-// export default class Map extends Component {
-//   constructor(props) {
-//     super(props);
-//     this.state = {
-//       lat: 13.98719,
-//       lng: 100.60588,
-//       zoom: 15,
-//     };
-//   }
-//   componentDidMount() {
-//     const map = new mapboxgl.Map({
-//       container: this.mapContainer,
-//       style: 'mapbox://styles/mapbox/dark-v9',
-//       center: [this.state.lng, this.state.lat],
-//       zoom: this.state.zoom
-//     });
-//     var el = document.createElement('div');
-//     el.className = 'marker';
-//     new mapboxgl.Marker(el)
-//       .setLngLat([-122.4, 37.7])
-//       .addTo(map);
-//   }
-//     render() {
-//       return (
-//         <div>
-//           <div ref={el => this.mapContainer = el} />
-//         </div>
-//       )
-//     }
-//   }
 
 
 

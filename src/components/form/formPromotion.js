@@ -29,7 +29,7 @@ export default function FormPromotion() {
             <Formik
                 validationSchema={PromotionSchema}
                 onSubmit={values => {
-                    // axios.post(`https://tander-webservice.an.r.appspot.com/users`, values, config, "user")
+                    // axios.post(`https://tander-webservice.an.r.appspot.com/promotions`, values, config, "user")
                     //     .then((res, err) => {
                     //         if (err) console.error(">>>>>>>>>>>>>>>>>>>>>\n" + err)
                     //         else {
@@ -73,7 +73,7 @@ export default function FormPromotion() {
                                     <Form.Control
                                         type="text"
                                         name="promotionName"
-                                        placeholder="Promotionname"
+                                        placeholder="Enter your promotion name"
                                         value={values.promotionName}
                                         onChange={handleChange}
 
@@ -100,6 +100,7 @@ export default function FormPromotion() {
                                     <Form.Control
                                         type="text"
                                         name="telephone"
+                                        placeholder="Enter your description"
                                         value={values.telephone}
                                         onChange={handleChange}
                                     />
@@ -111,6 +112,7 @@ export default function FormPromotion() {
                                     <Form.Control
                                         type="text"
                                         name="url"
+                                        placeholder="Enter your URL"
                                         value={values.url}
                                         onChange={handleChange}
                                     />

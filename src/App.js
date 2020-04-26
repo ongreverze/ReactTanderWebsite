@@ -9,6 +9,7 @@ import Restaurant from './page/restaurant';
 import Promotion from './page/promotion';
 import { UserContext } from './components/Usercontext'
 
+
 function App() {
   const [user, setUser] = useState(null);
   const [accessToken, setaccessToken] = useState(null);
@@ -22,7 +23,7 @@ function App() {
               <Route exact path='/' component={Login} />
               <Route path="/sign-in" component={Login} />
               <Route path="/sign-up" component={SignUp} />
-              <Route path="/restaurant" component={Restaurant} />
+              <Route path="/restaurant" component={Restaurant}/>
               <Route path="/promotion" component={Promotion} />
             </UserContext.Provider>
           </div>

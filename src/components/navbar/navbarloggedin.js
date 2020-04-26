@@ -14,7 +14,6 @@ export default function Navbarloggedin () {
                 <Navbar.Brand>Tander</Navbar.Brand>
                 <Nav className="mr-auto">
                     <Nav.Link><NavLink to="/restaurant">Restaurant</NavLink></Nav.Link>
-                    
                     <Nav.Link><NavLink to="/promotion">Promotion</NavLink></Nav.Link>
                 </Nav>
                 <Navbar.Collapse className="justify-content-end">

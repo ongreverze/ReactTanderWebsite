@@ -13,9 +13,11 @@ export default function Restaurant() {
     const [modalShow,setModalShow] = useState(false);
     const [restaurants, setRestaurants] = useState([]);
     const handleClose = () => setModalShow(false);
+    const {user,setUser} = useContext(UserContext);
 
     const getRestaurantsData = () => {
-        axios
+        if (user === "admin"){
+            axios
             .get('https://tander-webservice.an.r.appspot.com/restaurants')
             .then(res => {
                 const data = res.data
@@ -44,6 +46,38 @@ export default function Restaurant() {
             .catch((error) => {
                 console.log(error)
             })
+        }
+        else{
+            axios
+            .get('https://tander-webservice.an.r.appspot.com/restaurants')
+            .then(res => {
+                const data = res.data
+                console.log(data)
+                const restaurants = data.map(items =>
+                    <div>
+                        <Card>
+                            <Card.Img variant="top" src="holder.js/100px160" />
+                            <Card.Body>
+                                <Card.Title>{items.name}</Card.Title>
+                                <Card.Text>
+                                    {items.address}
+                                </Card.Text>
+                            </Card.Body>
+                            <Card.Footer>
+                                <EditFormRestaurant />
+                                <AddPromotion/>
+                            </Card.Footer>
+                        </Card>
+
+                    </div>
+                )
+                setRestaurants(restaurants);
+
+            })
+            .catch((error) => {
+                console.log(error)
+            })
+        }
 
     }
     useEffect(() => {
@@ -67,7 +101,7 @@ export default function Restaurant() {
                             </Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                        <FormRestaurant />
+                        <FormRestaurant/>
                     </Modal.Body>
                     
                 </Modal>
