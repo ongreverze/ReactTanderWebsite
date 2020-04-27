@@ -23,7 +23,7 @@ function App() {
               <Route exact path='/' component={Login} />
               <Route path="/sign-in" component={Login} />
               <Route path="/sign-up" component={SignUp} />
-              <Route path="/restaurant" component={Restaurant}/>
+              <Route path="/restaurant" component={Restaurant} />
               <Route path="/promotion" component={Promotion} />
             </UserContext.Provider>
           </div>

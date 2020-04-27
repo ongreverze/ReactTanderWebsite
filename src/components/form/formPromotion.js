@@ -29,7 +29,8 @@ export default function FormPromotion() {
             <Formik
                 validationSchema={PromotionSchema}
                 onSubmit={values => {
-                    values = { ...values 
+                    values = {
+                        ...values
                         // , file: {
                         // fileName: values.file.name,
                         // type:'promotion',
@@ -60,120 +61,120 @@ export default function FormPromotion() {
                     console.log(values);
                 }}
                 initialValues={{
-                promotionName: '',
-                description: '',
-                isVisible: false,
-                ownerUsername: user,
-                // file: null
-            }}
+                    promotionName: '',
+                    description: '',
+                    isVisible: false,
+                    ownerUsername: user,
+                    // file: null
+                }}
             >
-            {({
-                handleSubmit,
-                handleChange,
-                setFieldValue,
-                values,
-                touched,
-                errors,
-            }) => (
-                    <Form noValidate onSubmit={handleSubmit}>
-                        <Form.Row>
-                            <Form.Group as={Col} md="12" controlId="validationFormik01">
-                                <Form.Label>Promotion Name</Form.Label>
-                                <Form.Control
-                                    type="text"
-                                    name="promotionName"
-                                    placeholder="Enter your promotion name"
-                                    value={values.promotionName}
-                                    onChange={handleChange}
+                {({
+                    handleSubmit,
+                    handleChange,
+                    setFieldValue,
+                    values,
+                    touched,
+                    errors,
+                }) => (
+                        <Form noValidate onSubmit={handleSubmit}>
+                            <Form.Row>
+                                <Form.Group as={Col} md="12" controlId="validationFormik01">
+                                    <Form.Label>Promotion Name</Form.Label>
+                                    <Form.Control
+                                        type="text"
+                                        name="promotionName"
+                                        placeholder="Enter your promotion name"
+                                        value={values.promotionName}
+                                        onChange={handleChange}
 
-                                />
+                                    />
 
 
-                            </Form.Group>
-                        </Form.Row>
-                        <Form.Row>
-                            <Form.Group as={Col} md="12" controlId="validationFormik02">
-                                <Form.Label>Description</Form.Label>
-                                <Form.Control
-                                    type="text"
-                                    name="description"
-                                    placeholder="Enter your description"
-                                    value={values.description}
-                                    onChange={handleChange}
-                                />
-                            </Form.Group>
-                        </Form.Row>
-                        <Form.Row>
-                            <Form.Group as={Col} md="12" controlId="validationFormikUsername">
-                                <Form.Label>Telephone Number</Form.Label>
-                                <Form.Control
-                                    type="text"
-                                    name="telephone"
-                                    placeholder="Enter your description"
-                                    value={values.telephone}
-                                    onChange={handleChange}
-                                />
-                            </Form.Group>
-                        </Form.Row>
-                        <Form.Row>
-                            <Form.Group as={Col} md="12" controlId="validationFormikUsername">
-                                <Form.Label>URL</Form.Label>
-                                <Form.Control
-                                    type="text"
-                                    name="url"
-                                    placeholder="Enter your URL"
-                                    value={values.url}
-                                    onChange={handleChange}
-                                />
-                            </Form.Group>
-                        </Form.Row>
-                        <Form.Row>
-                            <Form.Group as={Col} md="6" controlId="validationFormikUsername">
-                                <Form.Label>ValidTime</Form.Label>
-                                <Form.Control
-                                    type="date"
-                                    name="validTime"
-                                    value={values.validTime}
-                                    onChange={handleChange}
-                                    isValid={touched.validTime && !errors.validTime}
-                                    isInvalid={!!errors.validTime}
-                                />
-                            </Form.Group>
-                            <Form.Group as={Col} md="6" controlId="validationFormik03">
-                                <Form.Label>EndTime</Form.Label>
-                                <Form.Control
-                                    type="date"
-                                    name="endTime"
-                                    value={values.endTime}
-                                    onChange={handleChange}
-                                    isInvalid={!!errors.endTime}
-                                />
-                            </Form.Group>
-                        </Form.Row>
-                        <Form.Row>
-                            <Form.Group as={Col} md="1" controlId="validationFormik03">
-                                <Form.Label>Visible</Form.Label>
-                                <Form.Control
-                                    type="checkbox"
-                                    name="isVisible"
-                                    value={values.isVisible}
-                                    onChange={handleChange}
-                                    checked={values.isVisible}
-                                />
-                            </Form.Group>
+                                </Form.Group>
+                            </Form.Row>
+                            <Form.Row>
+                                <Form.Group as={Col} md="12" controlId="validationFormik02">
+                                    <Form.Label>Description</Form.Label>
+                                    <Form.Control
+                                        type="text"
+                                        name="description"
+                                        placeholder="Enter your description"
+                                        value={values.description}
+                                        onChange={handleChange}
+                                    />
+                                </Form.Group>
+                            </Form.Row>
+                            <Form.Row>
+                                <Form.Group as={Col} md="12" controlId="validationFormikUsername">
+                                    <Form.Label>Telephone Number</Form.Label>
+                                    <Form.Control
+                                        type="text"
+                                        name="telephone"
+                                        placeholder="Enter your description"
+                                        value={values.telephone}
+                                        onChange={handleChange}
+                                    />
+                                </Form.Group>
+                            </Form.Row>
+                            <Form.Row>
+                                <Form.Group as={Col} md="12" controlId="validationFormikUsername">
+                                    <Form.Label>URL</Form.Label>
+                                    <Form.Control
+                                        type="text"
+                                        name="url"
+                                        placeholder="Enter your URL"
+                                        value={values.url}
+                                        onChange={handleChange}
+                                    />
+                                </Form.Group>
+                            </Form.Row>
+                            <Form.Row>
+                                <Form.Group as={Col} md="6" controlId="validationFormikUsername">
+                                    <Form.Label>ValidTime</Form.Label>
+                                    <Form.Control
+                                        type="date"
+                                        name="validTime"
+                                        value={values.validTime}
+                                        onChange={handleChange}
+                                        isValid={touched.validTime && !errors.validTime}
+                                        isInvalid={!!errors.validTime}
+                                    />
+                                </Form.Group>
+                                <Form.Group as={Col} md="6" controlId="validationFormik03">
+                                    <Form.Label>EndTime</Form.Label>
+                                    <Form.Control
+                                        type="date"
+                                        name="endTime"
+                                        value={values.endTime}
+                                        onChange={handleChange}
+                                        isInvalid={!!errors.endTime}
+                                    />
+                                </Form.Group>
+                            </Form.Row>
+                            <Form.Row>
+                                <Form.Group as={Col} md="1" controlId="validationFormik03">
+                                    <Form.Label>Visible</Form.Label>
+                                    <Form.Control
+                                        type="checkbox"
+                                        name="isVisible"
+                                        value={values.isVisible}
+                                        onChange={handleChange}
+                                        checked={values.isVisible}
+                                    />
+                                </Form.Group>
 
-                        </Form.Row>
-                        {/* <Form.Row>
+                            </Form.Row>
+                            {/* <Form.Row>
                             <input id="file" name="file" type="file" onChange={(event) => {
                                 setFieldValue("file", event.currentTarget.files[0]);
                             }} className="form-control" />
                         </Form.Row> */}
-                        <Button type="submit">Submit</Button>
-                    </Form>
-                )
-            }
+                            <Button type="submit">Submit</Button>
+                        </Form>
+                    )
+                }
 
-        </Formik>
+            </Formik>
 
         </>
     )

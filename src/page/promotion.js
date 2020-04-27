@@ -58,7 +58,7 @@ export default function Promotion() {
         }
         else {
             axios
-                .get('https://tander-webservice.an.r.appspot.com/promotions', token
+                .get('https://tander-webservice.an.r.appspot.com/promotions/myPromotions', token
                 ).then(res => {
                     const data = res.data
                     console.log(data)
@@ -67,7 +67,7 @@ export default function Promotion() {
                             <Card>
                                 <Card.Img variant="top" src="holder.js/100px160" />
                                 <Card.Body>
-                                    <Card.Title>{items.promotionname}</Card.Title>
+                                    <Card.Title>{items.promotionName}</Card.Title>
                                     <Card.Text>
                                         {items.description}
                                     </Card.Text>

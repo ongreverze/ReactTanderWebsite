@@ -14,7 +14,7 @@ export default function FormRestaurant() {
   const { accessToken } = useContext(UserContext);
   const token = {
     headers: { Authorization: `Bearer ${accessToken}` }
-};
+  };
   const RestaurantSchema = yup.object().shape({
     name: yup.string().required('Required'),
     address: yup.string(),
@@ -26,19 +26,21 @@ export default function FormRestaurant() {
       <Formik
         validationSchema={RestaurantSchema}
         onSubmit={values => {
-          values = { ...values, catagories: values.catagories.filter(e => e), position:{
-            lat: latlng.lat,
-            lon: latlng.lng
-          } }
-          axios.post(`https://tander-webservice.an.r.appspot.com/restaurants`, values , token)
-              .then((res, err) => {
-                  if (err) console.error(">>>>>>>>>>>>>>>>>>>>>\n" + err)
-                  else {
-                      console.log(res);
-                      console.log(res.data);
-                      alert("Add restaurant success !")
-                  }
-              })
+          values = {
+            ...values, catagories: values.catagories.filter(e => e), position: {
+              lat: latlng.lat,
+              lon: latlng.lng
+            }
+          }
+          axios.post(`https://tander-webservice.an.r.appspot.com/restaurants`, values, token)
+            .then((res, err) => {
+              if (err) console.error(">>>>>>>>>>>>>>>>>>>>>\n" + err)
+              else {
+                console.log(res);
+                console.log(res.data);
+                alert("Add restaurant success !")
+              }
+            })
           console.log(values);
         }}
         initialValues={{
@@ -279,7 +281,7 @@ export default function FormRestaurant() {
                 </Form.Group>
                 <pre>{JSON.stringify(latlng)}</pre>
               </Form.Row>
-              <MapComponent setLatlng={setLatlng}/>
+              <MapComponent setLatlng={setLatlng} />
               <Button type="submit">Submit</Button>
             </Form>
           )

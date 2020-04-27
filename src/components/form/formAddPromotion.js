@@ -1,4 +1,4 @@
-import React, { useState, useEffect , useContext } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { Form, Table, Button } from 'react-bootstrap'
 import axios from 'axios';
 import { UserContext } from '../Usercontext';
@@ -14,6 +14,7 @@ export default function FormAddPromotion(props) {
     };
 
     const getPromotionsData = () => {
+        if(user === "admin"){
         axios
             .get('https://tander-webservice.an.r.appspot.com/promotions/', config)
             .then(res => {
@@ -22,7 +23,7 @@ export default function FormAddPromotion(props) {
                 const promotions = data.map((items, key) => {
                     if (key === 0) setselectedPromotion(items.name)
                     return <option dataid={items._id} dataname={items.promotionName}
-                     key={key}>{items.promotionName}</option>
+                        key={key}>{items.promotionName}</option>
                 })
                 setPromotions(promotions);
                 console.log(promotions);
@@ -30,6 +31,25 @@ export default function FormAddPromotion(props) {
             .catch((error) => {
                 console.log(error)
             })
+        }
+        else {
+            axios
+            .get('https://tander-webservice.an.r.appspot.com/promotions/myPromotions', config)
+            .then(res => {
+                const data = res.data
+                console.log(data)
+                const promotions = data.map((items, key) => {
+                    if (key === 0) setselectedPromotion(items.name)
+                    return <option dataid={items._id} dataname={items.promotionName}
+                        key={key}>{items.promotionName}</option>
+                })
+                setPromotions(promotions);
+                console.log(promotions);
+            })
+            .catch((error) => {
+                console.log(error)
+            })
+        }
     }
     const removeItem = (index) => {
         let temp = selectedPromotions.filter((val, idx) => idx !== index)

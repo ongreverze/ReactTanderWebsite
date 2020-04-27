@@ -1,8 +1,8 @@
-import React, { useState , useContext , useEffect } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import NavbarLoggedin from '../components/navbar/navbarloggedin'
 import FormRestaurant from '../components/form/formRestaurant'
 import { Modal, Button, ButtonToolbar, CardColumns, Card } from 'react-bootstrap';
-import {UserContext} from '../components/Usercontext'
+import { UserContext } from '../components/Usercontext'
 import axios from 'axios';
 import EditFormRestaurant from '../components/modal/editFormRestaurant';
 import AddPromotion from '../components/modal/addPromotion';
@@ -10,73 +10,78 @@ import AddPromotion from '../components/modal/addPromotion';
 
 
 export default function Restaurant() {
-    const [modalShow,setModalShow] = useState(false);
+    const [modalShow, setModalShow] = useState(false);
     const [restaurants, setRestaurants] = useState([]);
     const handleClose = () => setModalShow(false);
-    const {user,setUser} = useContext(UserContext);
+    const { user, setUser } = useContext(UserContext);
+    const { accessToken } = useContext(UserContext);
 
     const getRestaurantsData = () => {
-        if (user === "admin"){
+        const token = {
+            headers: { Authorization: `Bearer ${accessToken}` }
+        };
+        console.log(accessToken);
+        if (user === "admin") {
             axios
-            .get('https://tander-webservice.an.r.appspot.com/restaurants')
-            .then(res => {
-                const data = res.data
-                console.log(data)
-                const restaurants = data.map(items =>
-                    <div>
-                        <Card>
-                            <Card.Img variant="top" src="holder.js/100px160" />
-                            <Card.Body>
-                                <Card.Title>{items.name}</Card.Title>
-                                <Card.Text>
-                                    {items.address}
-                                </Card.Text>
-                            </Card.Body>
-                            <Card.Footer>
-                                <EditFormRestaurant />
-                                <AddPromotion/>
-                            </Card.Footer>
-                        </Card>
+                .get('https://tander-webservice.an.r.appspot.com/restaurants')
+                .then(res => {
+                    const data = res.data
+                    console.log(data)
+                    const restaurants = data.map(items =>
+                        <div>
+                            <Card>
+                                <Card.Img variant="top" src="holder.js/100px160" />
+                                <Card.Body>
+                                    <Card.Title>{items.name}</Card.Title>
+                                    <Card.Text>
+                                        {items.address}
+                                    </Card.Text>
+                                </Card.Body>
+                                <Card.Footer>
+                                    <EditFormRestaurant />
+                                    <AddPromotion />
+                                </Card.Footer>
+                            </Card>
 
-                    </div>
-                )
-                setRestaurants(restaurants);
+                        </div>
+                    )
+                    setRestaurants(restaurants);
 
-            })
-            .catch((error) => {
-                console.log(error)
-            })
+                })
+                .catch((error) => {
+                    console.log(error)
+                })
         }
-        else{
+        else {
             axios
-            .get('https://tander-webservice.an.r.appspot.com/restaurants')
-            .then(res => {
-                const data = res.data
-                console.log(data)
-                const restaurants = data.map(items =>
-                    <div>
-                        <Card>
-                            <Card.Img variant="top" src="holder.js/100px160" />
-                            <Card.Body>
-                                <Card.Title>{items.name}</Card.Title>
-                                <Card.Text>
-                                    {items.address}
-                                </Card.Text>
-                            </Card.Body>
-                            <Card.Footer>
-                                <EditFormRestaurant />
-                                <AddPromotion/>
-                            </Card.Footer>
-                        </Card>
+                .get('https://tander-webservice.an.r.appspot.com/restaurants/myRestaurants', token)
+                .then(res => {
+                    const data = res.data
+                    console.log(data)
+                    const restaurants = data.map(items =>
+                        <div>
+                            <Card>
+                                <Card.Img variant="top" src="holder.js/100px160" />
+                                <Card.Body>
+                                    <Card.Title>{items.name}</Card.Title>
+                                    <Card.Text>
+                                        {items.address}
+                                    </Card.Text>
+                                </Card.Body>
+                                <Card.Footer>
+                                    <EditFormRestaurant />
+                                    <AddPromotion />
+                                </Card.Footer>
+                            </Card>
 
-                    </div>
-                )
-                setRestaurants(restaurants);
+                        </div>
+                    )
+                    setRestaurants(restaurants);
 
-            })
-            .catch((error) => {
-                console.log(error)
-            })
+                })
+                .catch((error) => {
+                    console.log(error)
+                })
         }
 
     }
@@ -85,9 +90,9 @@ export default function Restaurant() {
     }, []);
     return (
         <>
-            <NavbarLoggedin/>
+            <NavbarLoggedin />
             <label>Restaurant</label>
-                <ButtonToolbar>
+            <ButtonToolbar>
                 <Button onClick={() => setModalShow(true)}>Add</Button>
                 <Modal
                     size="lg"
@@ -101,9 +106,9 @@ export default function Restaurant() {
                             </Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                        <FormRestaurant/>
+                        <FormRestaurant />
                     </Modal.Body>
-                    
+
                 </Modal>
             </ButtonToolbar>
             <CardColumns>
