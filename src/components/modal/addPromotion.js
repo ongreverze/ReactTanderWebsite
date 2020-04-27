@@ -4,21 +4,12 @@ import FormAddPromotion from '../form/formAddPromotion';
 import axios from 'axios';
 
 
-export default function AddPromotion() {
+export default function AddPromotion(props) {
     const [modalShow, setModalShow] = useState(false);
     const handleClose = e => {
         setModalShow(false);
     }
-    const sendData = e => {
-        // axios.post(`https://tander-webservice.an.r.appspot.com/promotions`, values)
-        //     .then((res, err) => {
-        //         if (err) console.error(">>>>>>>>>>>>>>>>>>>>>\n" + err)
-        //         else {
-        //             console.log(res);
-        //             console.log(res.data);
-        //         }
-        //     })
-    }
+
     return (
         <>
             <ButtonToolbar>
@@ -41,7 +32,7 @@ export default function AddPromotion() {
                         <Button variant="secondary" onClick={handleClose}>
                             Cancel
           </Button>
-                        <Button variant="primary" onClick={sendData}>
+                        <Button variant="primary" onClick={handleClose}>
                             Save Changes
           </Button>
                     </Modal.Footer>

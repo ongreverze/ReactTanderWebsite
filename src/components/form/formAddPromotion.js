@@ -1,22 +1,28 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect , useContext } from 'react'
 import { Form, Table, Button } from 'react-bootstrap'
 import axios from 'axios';
+import { UserContext } from '../Usercontext';
 
-export default function FormAddPromotion() {
+export default function FormAddPromotion(props) {
     const [promotions, setPromotions] = useState([]);
     const [selectedPromotion, setselectedPromotion] = useState('');
     const [selectedPromotions, setselectedPromotions] = useState([]);
+    const { accessToken } = useContext(UserContext);
+    const { user } = useContext(UserContext);
+    const config = {
+        headers: { Authorization: `Bearer ${accessToken}` }
+    };
 
     const getPromotionsData = () => {
         axios
-            .get('https://tander-webservice.an.r.appspot.com/restaurants')
+            .get('https://tander-webservice.an.r.appspot.com/promotions/')
             .then(res => {
                 const data = res.data
                 console.log(data)
                 const promotions = data.map((items, key) => {
                     if (key === 0) setselectedPromotion(items.name)
-                    return <option dataid={items._id} dataname={items.name}
-                     key={key}>{items.name}</option>
+                    return <option dataid={items._id} dataname={items.promotionName}
+                     key={key}>{items.promotionName}</option>
                 })
                 setPromotions(promotions);
                 console.log(promotions);

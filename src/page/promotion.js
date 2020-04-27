@@ -29,7 +29,7 @@ export default function Promotion() {
                             <Card>
                                 <Card.Img variant="top" src="holder.js/100px160" />
                                 <Card.Body>
-                                    <Card.Title>{items.promotionname}</Card.Title>
+                                    <Card.Title>{items.promotionName}</Card.Title>
                                     <Card.Text>
                                         {items.description}
                                     </Card.Text>
