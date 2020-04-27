@@ -1,8 +1,8 @@
 import React, { useState, Component } from 'react'
-import FormRestaurant from '../form/formRestaurant';
-import { Button, ButtonToolbar, Modal } from 'react-bootstrap';
+import { Button, ButtonToolbar, Modal, Form } from 'react-bootstrap';
+import formInfoRestaurant from '../form/formInfoRestaurant';
 
-export default function EditFormRestaurant() {
+export default function InfoFormRestaurant() {
     const [modalShow, setModalShow] = useState(false);
     const handleClose = e => {
         setModalShow(false);
@@ -11,7 +11,7 @@ export default function EditFormRestaurant() {
     return (
         <>
             <ButtonToolbar>
-                <Button variant="dark" onClick={() => setModalShow(true)}>Edit</Button>
+                <Button variant="dark" onClick={() => setModalShow(true)}>Info</Button>
                 <Modal
                     size="lg"
                     show={modalShow}
@@ -20,18 +20,15 @@ export default function EditFormRestaurant() {
                 >
                     <Modal.Header closeButton>
                         <Modal.Title id="example-modal-sizes-title-lg">
-                            Edit Restaurant
+                            Info Restaurant
                                      </Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                        <FormRestaurant />
+                        <formInfoRestaurant/>
                     </Modal.Body>
                     <Modal.Footer>
                         <Button variant="secondary" onClick={handleClose}>
-                            Cancel
-          </Button>
-                        <Button variant="primary" onClick={handleClose}>
-                            Save Changes
+                            Close
           </Button>
                     </Modal.Footer>
                 </Modal>

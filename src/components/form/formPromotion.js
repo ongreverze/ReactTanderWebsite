@@ -9,55 +9,51 @@ export default function FormPromotion() {
     const { user } = useContext(UserContext);
     const { accessToken } = useContext(UserContext);
 
-
     const PromotionSchema = yup.object().shape({
-        promotionName: yup.string(),
-        description: yup.string(),
+        promotionName: yup.string().required(),
+        description: yup.string().required(),
         telephone: yup.string(),
         url: yup.string(),
-        validTime: yup.date(),
-        endTime: yup.date(),
+        validTime: yup.date().required(),
+        endTime: yup.date().required(),
         isVisible: yup.boolean(),
-        // file: yup.mixed().required(),
+        file: yup.mixed().required().required(),
     });
     const config = {
         headers: { Authorization: `Bearer ${accessToken}` }
     };
-
     return (
         <>
             <Formik
                 validationSchema={PromotionSchema}
                 onSubmit={values => {
                     values = {
-                        ...values
-                        // , file: {
-                        // fileName: values.file.name,
-                        // type:'promotion',
-                        // size: `${values.file.size} bytes`}
-                        ,
+                        ...values,
                         validTime: `${values.validTime}T00:00:00.000Z`,
                         endTime: `${values.endTime}T00:00:00.000Z`
                     }
                     axios.post(`https://tander-webservice.an.r.appspot.com/promotions`, values, config)
-                        .then((res, err) => {
-                            if (err) console.error(">>>>>>>>>>>>>>>>>>>>>\n" + err)
-                            else {
-                                console.log(res);
-                                console.log(res.data);
-                            }
+                        .then(res => {
+                            console.log(res);
+                            console.log(res.data);
+                            alert("Add promotion success")
+                            axios.post(`https://tander-webservice.an.r.appspot.com/images/promotions`, {
+                                image: values.file.name,
+                                type: 'promotion',
+                                enctype: 'multipart/form-data',
+                                promotionId: res._id
+                            })
+                                .then((res, err) => {
+                                    if (err) console.error(">>>>>>>>>>>>>>>>>>>>>\n" + err)
+                                    else {
+                                        console.log(res);
+                                        console.log(res.data);
+                                    }
+                                })
                         })
-                    // alert(
-                    //     JSON.stringify(
-                    //       { 
-                    //         fileName: values.file.name, 
-                    //         type: values.file.type,
-                    //         size: `${values.file.size} bytes`
-                    //       },
-                    //       null,
-                    //       2
-                    //     )
-                    //   );
+                        .catch(err => {
+                            console.log(err);
+                        })
                     console.log(values);
                 }}
                 initialValues={{
@@ -65,7 +61,7 @@ export default function FormPromotion() {
                     description: '',
                     isVisible: false,
                     ownerUsername: user,
-                    // file: null
+                    file: null
                 }}
             >
                 {({
@@ -164,18 +160,16 @@ export default function FormPromotion() {
                                 </Form.Group>
 
                             </Form.Row>
-                            {/* <Form.Row>
-                            <input id="file" name="file" type="file" onChange={(event) => {
-                                setFieldValue("file", event.currentTarget.files[0]);
-                            }} className="form-control" />
-                        </Form.Row> */}
+                            <Form.Row>
+                                <input id="file" name="file" type="file" onChange={(event) => {
+                                    setFieldValue("file", event.currentTarget.files[0]);
+                                }} className="form-control" />
+                            </Form.Row>
                             <Button type="submit">Submit</Button>
                         </Form>
                     )
                 }
-
             </Formik>
-
         </>
     )
 }

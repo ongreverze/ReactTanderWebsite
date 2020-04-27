@@ -32,15 +32,15 @@ export default function FormRestaurant() {
               lon: latlng.lng
             }
           }
-          axios.post(`https://tander-webservice.an.r.appspot.com/restaurants`, values, token)
-            .then((res, err) => {
-              if (err) console.error(">>>>>>>>>>>>>>>>>>>>>\n" + err)
-              else {
-                console.log(res);
-                console.log(res.data);
-                alert("Add restaurant success !")
-              }
-            })
+          // axios.post(`https://tander-webservice.an.r.appspot.com/restaurants`, values, token)
+          //   .then((res, err) => {
+          //     if (err) console.error(">>>>>>>>>>>>>>>>>>>>>\n" + err)
+          //     else {
+          //       console.log(res);
+          //       console.log(res.data);
+          //       alert("Add restaurant success !")
+          //     }
+          //   })
           console.log(values);
         }}
         initialValues={{
@@ -110,7 +110,7 @@ export default function FormRestaurant() {
                   />
                 </Form.Group>
               </Form.Row>
-              <h5>Catagories</h5>
+              <h5>Categories</h5>
               <br />
               <Form.Row>
                 <Form.Group as={Col} md="3" controlId="validationFormik03">
