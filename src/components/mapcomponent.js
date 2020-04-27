@@ -16,16 +16,18 @@ const Map = (props) => {
       center: [100.58494, 13.84108],
       zoom: 13.5
     });
+    map.on('load', function () {
+      map.resize();
+    });
 
     map.on('click', (e) => {
-      alert(e.lngLat);
       var _lat = e.lngLat.lat;
       var _long = e.lngLat.lng;
       console.log(_lat);
       console.log(_long);
       props.setLatlng({
-        lat : _lat,
-        lng : _long
+        lat: _lat,
+        lng: _long
       })
 
     });

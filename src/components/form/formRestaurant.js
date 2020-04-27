@@ -23,7 +23,6 @@ export default function FormRestaurant() {
   });
   return (
     <>
-      <pre>{JSON.stringify(latlng)}</pre>
       <Formik
         validationSchema={RestaurantSchema}
         onSubmit={values => {
@@ -278,6 +277,7 @@ export default function FormRestaurant() {
                     checked={values.Barbecue}
                   />
                 </Form.Group>
+                <pre>{JSON.stringify(latlng)}</pre>
               </Form.Row>
               <MapComponent setLatlng={setLatlng}/>
               <Button type="submit">Submit</Button>

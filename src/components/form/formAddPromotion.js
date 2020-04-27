@@ -15,7 +15,7 @@ export default function FormAddPromotion(props) {
 
     const getPromotionsData = () => {
         axios
-            .get('https://tander-webservice.an.r.appspot.com/promotions/')
+            .get('https://tander-webservice.an.r.appspot.com/promotions/', config)
             .then(res => {
                 const data = res.data
                 console.log(data)
