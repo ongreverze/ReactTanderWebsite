@@ -16,9 +16,9 @@ export default function FormRestaurant() {
     headers: { Authorization: `Bearer ${accessToken}` }
   };
   const RestaurantSchema = yup.object().shape({
-    name: yup.string().required('Required'),
-    address: yup.string(),
-    startPrice: yup.string(),
+    name: yup.string().required(),
+    address: yup.string().required(),
+    startPrice: yup.string().required(),
     url: yup.string(),
   });
   return (
@@ -44,7 +44,7 @@ export default function FormRestaurant() {
           console.log(values);
         }}
         initialValues={{
-          catagories: {},
+          categories: [],
           isPartner: true,
           position: {
             lat: 0,
@@ -121,7 +121,7 @@ export default function FormRestaurant() {
                     value={values.FastFood}
                     onChange={(event) => {
                       const value = event.target.checked ? 'fastfood' : null
-                      setFieldValue('catagories.0', value)
+                      setFieldValue('categories.0', value)
                     }
                     }
                     checked={values.FastFood}
@@ -136,7 +136,7 @@ export default function FormRestaurant() {
                     value={values.Hotpot}
                     onChange={(event) => {
                       const value = event.target.checked ? 'hotpot' : null
-                      setFieldValue('catagories.1', value)
+                      setFieldValue('categories.1', value)
                     }
                     }
                     checked={values.Hotpot}
@@ -150,7 +150,7 @@ export default function FormRestaurant() {
                     value={values.Japanese}
                     onChange={(event) => {
                       const value = event.target.checked ? 'japanese' : null
-                      setFieldValue('catagories.2', value)
+                      setFieldValue('categories.2', value)
                     }
                     }
                     checked={values.Japanese}
@@ -164,7 +164,7 @@ export default function FormRestaurant() {
                     value={values.Pizza}
                     onChange={(event) => {
                       const value = event.target.checked ? 'pizza' : null
-                      setFieldValue('catagories.3', value)
+                      setFieldValue('categories.3', value)
                     }}
                     checked={values.Pizza}
                   />
@@ -180,7 +180,7 @@ export default function FormRestaurant() {
                     value={values.Snacks}
                     onChange={(event) => {
                       const value = event.target.checked ? 'snacks' : null
-                      setFieldValue('catagories.4', value)
+                      setFieldValue('categories.4', value)
                     }
                     }
                     checked={values.Snacks}
@@ -194,7 +194,7 @@ export default function FormRestaurant() {
                     value={values.thai}
                     onChange={(event) => {
                       const value = event.target.checked ? 'thai' : null
-                      setFieldValue('catagories.5', value)
+                      setFieldValue('categories.5', value)
                     }}
                     checked={values.thai}
                   />
@@ -207,7 +207,7 @@ export default function FormRestaurant() {
                     value={values.SteakHouse}
                     onChange={(event) => {
                       const value = event.target.checked ? 'steakhouse' : null
-                      setFieldValue('catagories.6', value)
+                      setFieldValue('categories.6', value)
                     }}
                     checked={values.SteakHouse}
                   />
@@ -220,7 +220,7 @@ export default function FormRestaurant() {
                     value={values.Chinese}
                     onChange={(event) => {
                       const value = event.target.checked ? 'chinese' : null
-                      setFieldValue('catagories.7', value)
+                      setFieldValue('categories.7', value)
                     }}
                     checked={values.Chinese}
                   />
@@ -235,7 +235,7 @@ export default function FormRestaurant() {
                     value={values.Italian}
                     onChange={(event) => {
                       const value = event.target.checked ? 'italian' : null
-                      setFieldValue('catagories.8', value)
+                      setFieldValue('categories.8', value)
                     }}
                     checked={values.Italian}
                   />
@@ -248,7 +248,7 @@ export default function FormRestaurant() {
                     value={values.Restaurant}
                     onChange={(event) => {
                       const value = event.target.checked ? 'restaurant' : null
-                      setFieldValue('catagories.9', value)
+                      setFieldValue('categories.9', value)
                     }}
                     checked={values.Restaurant}
                   />
@@ -261,7 +261,7 @@ export default function FormRestaurant() {
                     value={values.Sushi}
                     onChange={(event) => {
                       const value = event.target.checked ? 'sushi' : null
-                      setFieldValue('catagories.10', value)
+                      setFieldValue('categories.10', value)
                     }}
                     checked={values.Sushi}
                   />
@@ -274,7 +274,7 @@ export default function FormRestaurant() {
                     value={values.Barbecue}
                     onChange={(event) => {
                       const value = event.target.checked ? 'barbecue' : null
-                      setFieldValue('catagories.11', value)
+                      setFieldValue('categories.11', value)
                     }}
                     checked={values.Barbecue}
                   />

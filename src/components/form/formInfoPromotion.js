@@ -42,11 +42,12 @@ export default function FormInfoPromotion({ promoId }) {
         console.log(error)
       })
   }
-  useEffect(() => {
-    getImagePromotion()
-  }, [])
+  
   useEffect(() => {
     getDataPromotion()
+  }, [])
+  useEffect(() => {
+    getImagePromotion()
   }, [])
   
 

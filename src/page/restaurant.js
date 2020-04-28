@@ -49,6 +49,7 @@ export default function Restaurant(props) {
                                     axios.delete(`https://tander-webservice.an.r.appspot.com/restaurants/id/${items._id}`, token)
                                         .then(res => {
                                             console.log(res);
+                                            alert("Delete restaurant success")
                                         })
                                         .catch(err => {
                                             console.log(err);

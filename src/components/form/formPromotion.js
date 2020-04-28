@@ -10,12 +10,12 @@ export default function FormPromotion() {
     const { accessToken } = useContext(UserContext);
 
     const PromotionSchema = yup.object().shape({
-        promotionName: yup.string(),
-        description: yup.string(),
+        promotionName: yup.string().required(),
+        description: yup.string().required(),
         telephone: yup.string(),
         url: yup.string(),
-        validTime: yup.date(),
-        endTime: yup.date(),
+        validTime: yup.date().required(),
+        endTime: yup.date().required(),
         isVisible: yup.boolean(),
         file: yup.mixed().required(),
     });
