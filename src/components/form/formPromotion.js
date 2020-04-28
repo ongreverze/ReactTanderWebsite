@@ -10,17 +10,19 @@ export default function FormPromotion() {
     const { accessToken } = useContext(UserContext);
 
     const PromotionSchema = yup.object().shape({
-        promotionName: yup.string().required(),
-        description: yup.string().required(),
+        promotionName: yup.string(),
+        description: yup.string(),
         telephone: yup.string(),
         url: yup.string(),
-        validTime: yup.date().required(),
-        endTime: yup.date().required(),
+        validTime: yup.date(),
+        endTime: yup.date(),
         isVisible: yup.boolean(),
-        file: yup.mixed().required().required(),
+        file: yup.mixed().required(),
     });
     const config = {
-        headers: { Authorization: `Bearer ${accessToken}` }
+        headers: {
+            Authorization: `Bearer ${accessToken}`
+        }
     };
     return (
         <>
@@ -37,15 +39,16 @@ export default function FormPromotion() {
                             console.log(res);
                             console.log(res.data);
                             alert("Add promotion success")
-                           
-                            var bodyFormData = new FormData();
-                            bodyFormData.set('type', 'promotion');
-                            bodyFormData.set('promotionId',  res.data.result._id);
-                            bodyFormData.set('enctype',  'multipart/form-data');
-                            bodyFormData.append('image', values.file.name);
-                            console.log(bodyFormData); 
-                        
-                            axios.post(`https://tander-webservice.an.r.appspot.com/images/`, bodyFormData)
+                            let file = values.file;
+                            let _id = res.data.result._id
+                            console.log(_id)
+                            let formdata = new FormData()
+
+                            formdata.append('image', file)
+                            formdata.append('type', 'promotion')
+                            formdata.append('promotionId', _id)
+
+                            axios.post(`https://tander-webservice.an.r.appspot.com/images/`, formdata, config)
                                 .then((res, err) => {
                                     if (err) console.error(">>>>>>>>>>>>>>>>>>>>>\n" + err)
                                     else {

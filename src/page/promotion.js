@@ -13,6 +13,7 @@ export default function Promotion() {
     const [promotions, setPromotions] = useState([]);
 
     let url = `https://tander-webservice.an.r.appspot.com/promotions${user === "admin" ? '' : "/myPromotions"}`
+    
     const getPromotionsData = () => {
         const token = {
             headers: { Authorization: `Bearer ${accessToken}` }
@@ -26,7 +27,6 @@ export default function Promotion() {
                 const promotions = data.map(items =>
                     <div>
                         <Card>
-                            <Card.Img variant="top" src="holder.js/100px160" />
                             <Card.Body>
                                 <Card.Title>{items.promotionName}</Card.Title>
                                 <Card.Text>

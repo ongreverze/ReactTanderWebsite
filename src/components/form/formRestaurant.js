@@ -27,24 +27,24 @@ export default function FormRestaurant() {
         validationSchema={RestaurantSchema}
         onSubmit={values => {
           values = {
-            ...values, catagories: values.catagories.filter(e => e), position: {
+            ...values, position: {
               lat: latlng.lat,
               lon: latlng.lng
             }
           }
-          // axios.post(`https://tander-webservice.an.r.appspot.com/restaurants`, values, token)
-          //   .then((res, err) => {
-          //     if (err) console.error(">>>>>>>>>>>>>>>>>>>>>\n" + err)
-          //     else {
-          //       console.log(res);
-          //       console.log(res.data);
-          //       alert("Add restaurant success !")
-          //     }
-          //   })
+          axios.post(`https://tander-webservice.an.r.appspot.com/restaurants`, values, token)
+            .then((res, err) => {
+              if (err) console.error(">>>>>>>>>>>>>>>>>>>>>\n" + err)
+              else {
+                console.log(res);
+                console.log(res.data);
+                alert("Add restaurant success !")
+              }
+            })
           console.log(values);
         }}
         initialValues={{
-          catagories: [],
+          catagories: {},
           isPartner: true,
           position: {
             lat: 0,
