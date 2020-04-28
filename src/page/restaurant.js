@@ -5,30 +5,21 @@ import { Modal, Button, ButtonToolbar, CardColumns, Card } from 'react-bootstrap
 import { UserContext } from '../components/Usercontext'
 import axios from 'axios';
 import AddPromotion from '../components/modal/addPromotion';
-
-
-
+import InfoFormRestaurant from '../components/modal/infoFormRestaurant';
 
 export default function Restaurant(props) {
     // context here...
     const { user } = useContext(UserContext);
     const { accessToken } = useContext(UserContext);
-    const { idRestaurant, setIdRestaurants } = useContext(UserContext);
 
     // state here...
     // restaurants state
     const [restaurants, setRestaurants] = useState([]);
     // modal state
     const [openAddRestaurant, setopenAddRestaurant] = useState(false);
-    // const [openAddPromotion, setOpenAddPromotion] = useState(false);
-    
 
     const handleClose = () => setopenAddRestaurant(false);
-    
-    const keepIDRestaurant = (data) => {
-        setIdRestaurants(data);
-        console.log(idRestaurant);
-    }
+
     const getRestaurantsData = () => {
         const token = {
             headers: { Authorization: `Bearer ${accessToken}` }
@@ -42,22 +33,33 @@ export default function Restaurant(props) {
                 const data = res.data
                 console.log(data)
                 const restaurants = data.map((items, index) =>
-                        <Card key={index}>
-                            <Card.Img variant="top" src="holder.js/100px160" />
-                            <Card.Body>
-                                <Card.Title>{items.name}</Card.Title>
-                                <Card.Text>
-                                    {items.address}
-                                </Card.Text>
-                            </Card.Body>
-                            <Card.Footer>
-                                {/* <InfoFormRestaurant /> */}
-                                {/* <ButtonToolbar>
-                                    <Button variant="info" onClick={() => setOpenAddPromotion(true)}>Add Promotion</Button>
-                                </ButtonToolbar> */}
-                                <AddPromotion restid={items._id} />
-                            </Card.Footer>
-                        </Card>
+                    <Card key={index}>
+                        <Card.Img variant="top" src="holder.js/100px160" />
+                        <Card.Body>
+                            <Card.Title>{items.name}</Card.Title>
+                            <Card.Text>
+                                {items.address}
+                            </Card.Text>
+                        </Card.Body>
+                        <Card.Footer>
+                            <InfoFormRestaurant restid={items._id} />
+                            <AddPromotion restid={items._id} />
+                            <Button variant="danger"
+                                onClick={() =>
+                                    axios.delete(`https://tander-webservice.an.r.appspot.com/restaurants/id/${items._id}`, token)
+                                        .then(res => {
+                                            console.log(res);
+                                        })
+                                        .catch(err => {
+                                            console.log(err);
+                                        })
+                                }
+                            >
+                                Delete
+                                </Button>
+
+                        </Card.Footer>
+                    </Card>
                 )
                 setRestaurants(restaurants);
 
@@ -65,9 +67,6 @@ export default function Restaurant(props) {
             .catch((error) => {
                 console.log(error)
             })
-
-
-
     }
     useEffect(() => {
         getRestaurantsData()
@@ -92,13 +91,11 @@ export default function Restaurant(props) {
                     <Modal.Body>
                         <FormRestaurant />
                     </Modal.Body>
-
                 </Modal>
             </ButtonToolbar>
             <CardColumns>
                 {restaurants}
             </CardColumns>
-            
         </>
     )
 }

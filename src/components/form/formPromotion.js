@@ -37,17 +37,19 @@ export default function FormPromotion() {
                             console.log(res);
                             console.log(res.data);
                             alert("Add promotion success")
-                            axios.post(`https://tander-webservice.an.r.appspot.com/images/promotions`, {
-                                image: values.file.name,
-                                type: 'promotion',
-                                enctype: 'multipart/form-data',
-                                promotionId: res._id
-                            })
+                           
+                            var bodyFormData = new FormData();
+                            bodyFormData.set('type', 'promotion');
+                            bodyFormData.set('promotionId',  res.data.result._id);
+                            bodyFormData.set('enctype',  'multipart/form-data');
+                            bodyFormData.append('image', values.file.name);
+                            console.log(bodyFormData); 
+                        
+                            axios.post(`https://tander-webservice.an.r.appspot.com/images/`, bodyFormData)
                                 .then((res, err) => {
                                     if (err) console.error(">>>>>>>>>>>>>>>>>>>>>\n" + err)
                                     else {
                                         console.log(res);
-                                        console.log(res.data);
                                     }
                                 })
                         })

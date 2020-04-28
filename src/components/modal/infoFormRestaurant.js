@@ -1,8 +1,8 @@
-import React, { useState, Component } from 'react'
-import { Button, ButtonToolbar, Modal, Form } from 'react-bootstrap';
-import formInfoRestaurant from '../form/formInfoRestaurant';
+import React, { useState } from 'react'
+import { Button, ButtonToolbar, Modal } from 'react-bootstrap';
+import FormInfoRestaurant from '../form/formInfoRestaurant';
 
-export default function InfoFormRestaurant() {
+export default function InfoFormRestaurant({ restid }) {
     const [modalShow, setModalShow] = useState(false);
     const handleClose = e => {
         setModalShow(false);
@@ -21,10 +21,10 @@ export default function InfoFormRestaurant() {
                     <Modal.Header closeButton>
                         <Modal.Title id="example-modal-sizes-title-lg">
                             Info Restaurant
-                                     </Modal.Title>
+                    </Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                        <formInfoRestaurant/>
+                        <FormInfoRestaurant restid={restid} />
                     </Modal.Body>
                     <Modal.Footer>
                         <Button variant="secondary" onClick={handleClose}>
@@ -32,7 +32,6 @@ export default function InfoFormRestaurant() {
           </Button>
                     </Modal.Footer>
                 </Modal>
-
             </ButtonToolbar>
         </>
     )

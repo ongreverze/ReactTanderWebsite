@@ -1,12 +1,13 @@
-import React, { Component, useState, useContext, useEffect } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import NavbarLoggedin from '../components/navbar/navbarloggedin'
 import FormPromotion from '../components/form/formPromotion'
 import { Modal, Button, ButtonToolbar, CardColumns, Card } from 'react-bootstrap';
 import axios from 'axios';
 import { UserContext } from '../components/Usercontext';
+import InfoFormPromotion from '../components/modal/infoFormPromotion';
 
 export default function Promotion() {
-    const { user, setUser } = useContext(UserContext);
+    const { user } = useContext(UserContext);
     const { accessToken } = useContext(UserContext);
     const [modalShow, setModalShow] = useState(false);
     const [promotions, setPromotions] = useState([]);
@@ -33,21 +34,25 @@ export default function Promotion() {
                                 </Card.Text>
                             </Card.Body>
                             <Card.Footer>
+                                <InfoFormPromotion promoId = {items._id}/>
                                 <Button variant="danger"
-                                // onClick={() =>
-                                // axios.delete(`https://tander-webservice.herokuapp.com/promotions/${items._id}`,token)}
-
+                                    onClick={() =>
+                                        axios.delete(`https://tander-webservice.an.r.appspot.com/promotions/id/${items._id}`, token)
+                                            .then(res => {
+                                                console.log(res);
+                                            })
+                                            .catch(err => {
+                                                console.log(err);
+                                            })
+                                    }
                                 >
                                     Delete
                                 </Button>
                             </Card.Footer>
                         </Card>
-
-                    </div>
-
+                    </div >
                 )
                 setPromotions(promotions);
-
             })
             .catch((error) => {
                 console.log(error)
