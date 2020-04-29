@@ -59,7 +59,7 @@ export default function SignUp() {
                     errors,
                 }) => (
                         <Form noValidate onSubmit={handleSubmit}>
-                            <h3>Sign in</h3>
+                            <h3>Sign up</h3>
                             <Form.Row>
                                 <Form.Group as={Col} md="6" controlId="validationFormik01">
                                     <Form.Label>First name</Form.Label>
