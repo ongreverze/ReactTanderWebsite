@@ -10,7 +10,7 @@ export default function FormRestaurant() {
     lat: 0,
     lng: 0
   });
-  const [categories, setCategories] = useState([]);
+  const [categories] = useState([]);
   const { accessToken } = useContext(UserContext);
   const token = {
     headers: { Authorization: `Bearer ${accessToken}` }
@@ -59,7 +59,6 @@ export default function FormRestaurant() {
           handleSubmit,
           handleChange,
           values,
-          setFieldValue,
         }) => (
             <Form noValidate onSubmit={handleSubmit} >
               <Form.Row>
@@ -118,7 +117,7 @@ export default function FormRestaurant() {
                     type="checkbox"
                     name="FastFood"
                     value={values.FastFood}
-                    onChange={ (event)=> toggle(event.target.checked,'fastfood')}
+                    onChange={(event)=> toggle(event.target.checked,'fastfood')}
                     checked={values.FastFood}
 
                   />
@@ -129,10 +128,7 @@ export default function FormRestaurant() {
                     type="checkbox"
                     name="Hotpot"
                     value={values.Hotpot}
-                    onChange={(event) => 
-                      toggle(event.target.checked,'hotpot')
-                    
-                    }
+                    onChange={(event) => toggle(event.target.checked,'hotpot')}
                     checked={values.Hotpot}
                   />
                 </Form.Group>
