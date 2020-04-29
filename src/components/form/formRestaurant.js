@@ -6,7 +6,6 @@ import { UserContext } from '../Usercontext';
 import MapComponent from '../mapcomponent';
 import axios from 'axios'
 export default function FormRestaurant() {
-  const { user } = useContext(UserContext);
   const [latlng, setLatlng] = useState({
     lat: 0,
     lng: 0
@@ -56,11 +55,7 @@ export default function FormRestaurant() {
           handleSubmit,
           handleChange,
           values,
-          touched,
-          isValid,
-          errors,
           setFieldValue,
-
         }) => (
             <Form noValidate onSubmit={handleSubmit} >
               <Form.Row>
@@ -286,7 +281,6 @@ export default function FormRestaurant() {
             </Form>
           )
         }
-
       </Formik>
     </>
   )

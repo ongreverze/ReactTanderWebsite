@@ -8,7 +8,6 @@ export default function AddPromotion({ restid }) {
   const handleClose = e => {
     setModalShow(false);
   }
-
   return (
     <>
       <ButtonToolbar>

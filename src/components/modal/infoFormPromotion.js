@@ -7,7 +7,6 @@ export default function InfoFormPromotion({ promoId }) {
   const handleClose = e => {
     setModalShow(false);
   }
-
   return (
     <>
       <ButtonToolbar>

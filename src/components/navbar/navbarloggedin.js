@@ -7,9 +7,7 @@ import { NavLink } from "react-router-dom";
 
 export default function Navbarloggedin() {
     const { user, setUser } = useContext(UserContext);
-
     return (
-
         <Navbar bg="light" variant="light" className="fixed-top">
             <Navbar.Brand>Tander</Navbar.Brand>
             <Nav className="mr-auto">
