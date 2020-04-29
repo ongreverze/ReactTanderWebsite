@@ -48,6 +48,7 @@ export default function FormAddPromotion({ restid }) {
         axios.post(`https://tander-webservice.an.r.appspot.com/restaurants/addPromotions`, value ,config 
         ).then(res => {
             console.log(res);
+            alert("Add promotion to restaurant success !")
         }).catch((error) => {
             console.log(error)
         })

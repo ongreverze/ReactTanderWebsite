@@ -40,6 +40,7 @@ export default function Promotion() {
                                         axios.delete(`https://tander-webservice.an.r.appspot.com/promotions/id/${items._id}`, token)
                                             .then(res => {
                                                 console.log(res);
+                                                alert("Delete promotion success !")
                                             })
                                             .catch(err => {
                                                 console.log(err);
