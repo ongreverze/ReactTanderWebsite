@@ -11,7 +11,6 @@ export default function FormInfoPromotion({ promoId }) {
     validTime: '',
     endTime: '',
   });
-  const [image,setImage] = useState();
   const token = {
     headers: { Authorization: `Bearer ${accessToken}` }
   };
@@ -31,26 +30,9 @@ export default function FormInfoPromotion({ promoId }) {
         console.log(error)
       })
   }
-  const getImagePromotion = () => {
-    axios.get(`https://tander-webservice.an.r.appspot.com/images/promotions/${promoId}`, token)
-      .then(res => {
-        console.log(res)
-        setImage(res)
-        console.log(image)
-      })
-      .catch((error) => {
-        console.log(error)
-      })
-  }
-  
   useEffect(() => {
     getDataPromotion()
   }, [])
-  useEffect(() => {
-    getImagePromotion()
-  }, [])
-  
-
   return (
     <div>
       <label>{console.log(promotion)}</label>
@@ -58,7 +40,6 @@ export default function FormInfoPromotion({ promoId }) {
       <label>Description : {promotion.description}</label><br />
       <label>ValidTime (YYYY/MM/DD) : {promotion.validTime}</label><br />
       <label>EndTime (YYYY/MM/DD) : {promotion.endTime}</label><br />
-      <img src ={image} />
     </div>
   )
 }

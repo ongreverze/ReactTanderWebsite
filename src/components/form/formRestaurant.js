@@ -15,7 +15,7 @@ export default function FormRestaurant() {
   const token = {
     headers: { Authorization: `Bearer ${accessToken}` }
   };
-  const toggle = (event,option) => {
+  const toggle = (event, option) => {
     if (true) categories.push(option);
   };
   const RestaurantSchema = yup.object().shape({
@@ -43,6 +43,22 @@ export default function FormRestaurant() {
                 console.log(res);
                 console.log(res.data);
                 alert("Add restaurant success !")
+                let file = values.file;
+                let _id = res.data._id
+                console.log(_id)
+                let formdata = new FormData()
+
+                formdata.append('image', file)
+                formdata.append('type', 'restaurant')
+                formdata.append('restaurantId', _id)
+
+                axios.post(`https://tander-webservice.an.r.appspot.com/images/`, formdata, token)
+                  .then((res, err) => {
+                    if (err) console.error(">>>>>>>>>>>>>>>>>>>>>\n" + err)
+                    else {
+                      console.log(res);
+                    }
+                  })
               }
             })
           console.log(values);
@@ -59,6 +75,7 @@ export default function FormRestaurant() {
           handleSubmit,
           handleChange,
           values,
+          setFieldValue
         }) => (
             <Form noValidate onSubmit={handleSubmit} >
               <Form.Row>
@@ -117,7 +134,7 @@ export default function FormRestaurant() {
                     type="checkbox"
                     name="FastFood"
                     value={values.FastFood}
-                    onChange={(event)=> toggle(event.target.checked,'fastfood')}
+                    onChange={(event) => toggle(event.target.checked, 'fastfood')}
                     checked={values.FastFood}
 
                   />
@@ -128,7 +145,7 @@ export default function FormRestaurant() {
                     type="checkbox"
                     name="Hotpot"
                     value={values.Hotpot}
-                    onChange={(event) => toggle(event.target.checked,'hotpot')}
+                    onChange={(event) => toggle(event.target.checked, 'hotpot')}
                     checked={values.Hotpot}
                   />
                 </Form.Group>
@@ -138,7 +155,7 @@ export default function FormRestaurant() {
                     type="checkbox"
                     name="Japanese"
                     value={values.Japanese}
-                    onChange={(event) =>toggle(event.target.checked,'japanese')}
+                    onChange={(event) => toggle(event.target.checked, 'japanese')}
                     checked={values.Japanese}
                   />
                 </Form.Group>
@@ -148,7 +165,7 @@ export default function FormRestaurant() {
                     type="checkbox"
                     name="Pizza"
                     value={values.Pizza}
-                    onChange={(event) => toggle(event.target.checked,'pizza')}
+                    onChange={(event) => toggle(event.target.checked, 'pizza')}
                     checked={values.Pizza}
                   />
                 </Form.Group>
@@ -161,7 +178,7 @@ export default function FormRestaurant() {
                     type="checkbox"
                     name="Snacks"
                     value={values.Snacks}
-                    onChange={(event) => toggle(event.target.checked,'snacks')}
+                    onChange={(event) => toggle(event.target.checked, 'snacks')}
                     checked={values.Snacks}
                   />
                 </Form.Group>
@@ -171,7 +188,7 @@ export default function FormRestaurant() {
                     type="checkbox"
                     name="thai"
                     value={values.thai}
-                    onChange={(event) => toggle(event.target.checked,'thai')}
+                    onChange={(event) => toggle(event.target.checked, 'thai')}
                     checked={values.thai}
                   />
                 </Form.Group>
@@ -181,7 +198,7 @@ export default function FormRestaurant() {
                     type="checkbox"
                     name="SteakHouse"
                     value={values.SteakHouse}
-                    onChange={(event) => toggle(event.target.checked,'steakhouse')}
+                    onChange={(event) => toggle(event.target.checked, 'steakhouse')}
                     checked={values.SteakHouse}
                   />
                 </Form.Group>
@@ -191,7 +208,7 @@ export default function FormRestaurant() {
                     type="checkbox"
                     name="Chinese"
                     value={values.Chinese}
-                    onChange={(event) => toggle(event.target.checked,'chinese')}
+                    onChange={(event) => toggle(event.target.checked, 'chinese')}
                     checked={values.Chinese}
                   />
                 </Form.Group>
@@ -203,7 +220,7 @@ export default function FormRestaurant() {
                     type="checkbox"
                     name="Italian"
                     value={values.Italian}
-                    onChange={(event) => toggle(event.target.checked,'italian')}
+                    onChange={(event) => toggle(event.target.checked, 'italian')}
                     checked={values.Italian}
                   />
                 </Form.Group>
@@ -213,7 +230,7 @@ export default function FormRestaurant() {
                     type="checkbox"
                     name="Restaurant"
                     value={values.Restaurant}
-                    onChange={(event) =>toggle(event.target.checked,'restaurant')}
+                    onChange={(event) => toggle(event.target.checked, 'restaurant')}
                     checked={values.Restaurant}
                   />
                 </Form.Group>
@@ -223,7 +240,7 @@ export default function FormRestaurant() {
                     type="checkbox"
                     name="Sushi"
                     value={values.Sushi}
-                    onChange={(event) =>toggle(event.target.checked,'sushi')}
+                    onChange={(event) => toggle(event.target.checked, 'sushi')}
                     checked={values.Sushi}
                   />
                 </Form.Group>
@@ -233,13 +250,19 @@ export default function FormRestaurant() {
                     type="checkbox"
                     name="Barbecue"
                     value={values.Barbecue}
-                    onChange={(event) =>toggle(event.target.checked,'barbecue')}
+                    onChange={(event) => toggle(event.target.checked, 'barbecue')}
                     checked={values.Barbecue}
                   />
                 </Form.Group>
-                <pre>{JSON.stringify(latlng)}</pre>
               </Form.Row>
+              <Form.Row>
+                <label>Image</label>
+                <input id="file" name="file" type="file" onChange={(event) => {
+                  setFieldValue("file", event.currentTarget.files[0]);
+                }} className="form-control" />
+              </Form.Row><br/>
               <MapComponent setLatlng={setLatlng} />
+              <pre>{JSON.stringify(latlng)}</pre>
               <Button type="submit">Submit</Button>
             </Form>
           )

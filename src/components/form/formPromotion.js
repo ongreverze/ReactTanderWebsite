@@ -19,7 +19,7 @@ export default function FormPromotion() {
         isVisible: yup.boolean(),
         file: yup.mixed().required(),
     });
-    const config = {
+    const token = {
         headers: {
             Authorization: `Bearer ${accessToken}`
         }
@@ -34,7 +34,7 @@ export default function FormPromotion() {
                         validTime: `${values.validTime}T00:00:00.000Z`,
                         endTime: `${values.endTime}T00:00:00.000Z`
                     }
-                    axios.post(`https://tander-webservice.an.r.appspot.com/promotions`, values, config)
+                    axios.post(`https://tander-webservice.an.r.appspot.com/promotions`, values, token)
                         .then(res => {
                             console.log(res);
                             console.log(res.data);
@@ -48,7 +48,7 @@ export default function FormPromotion() {
                             formdata.append('type', 'promotion')
                             formdata.append('promotionId', _id)
 
-                            axios.post(`https://tander-webservice.an.r.appspot.com/images/`, formdata, config)
+                            axios.post(`https://tander-webservice.an.r.appspot.com/images/`, formdata, token)
                                 .then((res, err) => {
                                     if (err) console.error(">>>>>>>>>>>>>>>>>>>>>\n" + err)
                                     else {
@@ -163,13 +163,13 @@ export default function FormPromotion() {
                                         checked={values.isVisible}
                                     />
                                 </Form.Group>
-
                             </Form.Row>
                             <Form.Row>
+                            <label>Image</label>
                                 <input id="file" name="file" type="file" onChange={(event) => {
                                     setFieldValue("file", event.currentTarget.files[0]);
                                 }} className="form-control" />
-                            </Form.Row>
+                            </Form.Row><br/>
                             <Button type="submit">Submit</Button>
                         </Form>
                     )

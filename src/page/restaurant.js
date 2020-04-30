@@ -34,7 +34,6 @@ export default function Restaurant(props) {
                 console.log(data)
                 const restaurants = data.map((items, index) =>
                     <Card key={index}>
-                        <Card.Img variant="top" src="holder.js/100px160" />
                         <Card.Body>
                             <Card.Title>{items.name}</Card.Title>
                             <Card.Text>
